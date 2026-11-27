@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Data Siswa - Modern UI</title>
+    <title>Sistem Pembayaran SPP - Modern UI</title>
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Bootstrap 5 & Bootstrap Icons -->
+    <!-- Bootstrap 5 & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         :root {
             --bg-main: #060b19;
-            --bg-card: rgba(17, 25, 48, 0.78);
+            --bg-card: rgba(17, 25, 48, 0.8);
             --bg-sidebar: #0b1224;
             --border-glass: rgba(255, 255, 255, 0.09);
             --accent-blue: #3b82f6;
+            --accent-emerald: #10b981;
             --accent-indigo: #6366f1;
-            --accent-cyan: #06b6d4;
             --text-muted: #94a3b8;
         }
 
@@ -26,8 +26,8 @@
         body {
             background-color: var(--bg-main);
             background-image:
-                radial-gradient(at 15% 15%, rgba(59, 130, 246, 0.16) 0px, transparent 50%),
-                radial-gradient(at 85% 85%, rgba(99, 102, 241, 0.14) 0px, transparent 50%);
+                radial-gradient(at 10% 10%, rgba(16, 185, 129, 0.14) 0px, transparent 50%),
+                radial-gradient(at 90% 90%, rgba(59, 130, 246, 0.16) 0px, transparent 50%);
             color: #f8fafc;
             min-height: 100vh;
             overflow-x: hidden;
@@ -45,7 +45,7 @@
 
         /* Form Inputs */
         .form-control, .form-select {
-            background-color: rgba(6, 11, 25, 0.75) !important;
+            background-color: rgba(6, 11, 25, 0.78) !important;
             border: 1px solid rgba(148, 163, 184, 0.25) !important;
             color: #f8fafc !important;
             border-radius: 12px;
@@ -53,13 +53,13 @@
             transition: all 0.25s ease;
         }
         .form-control:focus, .form-select:focus {
-            border-color: var(--accent-blue) !important;
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.18) !important;
+            border-color: var(--accent-emerald) !important;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18) !important;
         }
         .form-control::placeholder { color: #64748b; }
 
         /* Buttons */
-        .btn-gradient {
+        .btn-gradient-primary {
             background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
             border: none;
             color: #fff;
@@ -69,11 +69,19 @@
             transition: all 0.25s ease;
             box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
         }
-        .btn-gradient:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 25px rgba(59, 130, 246, 0.45);
+        .btn-gradient-primary:hover { transform: translateY(-2px); color: #fff; box-shadow: 0 12px 25px rgba(59, 130, 246, 0.45); }
+
+        .btn-gradient-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
             color: #fff;
+            font-weight: 600;
+            border-radius: 12px;
+            padding: 11px 22px;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
         }
+        .btn-gradient-success:hover { transform: translateY(-2px); color: #fff; box-shadow: 0 12px 25px rgba(16, 185, 129, 0.45); }
 
         /* Sidebar */
         .sidebar {
@@ -85,15 +93,15 @@
             top: 0;
         }
         .brand-logo {
-            background: linear-gradient(135deg, #3b82f6, #06b6d4);
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            width: 44px;
+            height: 44px;
+            border-radius: 13px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
-            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+            font-size: 1.35rem;
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
         }
         .nav-pill-custom {
             color: var(--text-muted);
@@ -108,23 +116,16 @@
             transition: all 0.2s ease;
             text-decoration: none;
         }
-        .nav-pill-custom:hover {
-            background: rgba(59, 130, 246, 0.12);
-            color: #fff;
-        }
+        .nav-pill-custom:hover { background: rgba(16, 185, 129, 0.12); color: #fff; }
         .nav-pill-custom.active {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(99, 102, 241, 0.2));
-            color: #60a5fa;
-            border: 1px solid rgba(59, 130, 246, 0.35);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(59, 130, 246, 0.2));
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.35);
             font-weight: 600;
         }
 
         /* Stat Cards */
-        .stat-card {
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.25s ease;
-        }
+        .stat-card { transition: transform 0.25s ease; }
         .stat-card:hover { transform: translateY(-4px); }
         .stat-icon {
             width: 52px;
@@ -137,55 +138,45 @@
         }
 
         /* Table Styling */
-        .table-modern {
-            color: #e2e8f0;
-            margin-bottom: 0;
-        }
+        .table-modern { color: #e2e8f0; margin-bottom: 0; }
         .table-modern thead th {
-            background: rgba(15, 23, 42, 0.85);
-            color: #93c5fd;
+            background: rgba(15, 23, 42, 0.9);
+            color: #6ee7b7;
             font-weight: 600;
             text-transform: uppercase;
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             letter-spacing: 0.06em;
             border-bottom: 1px solid var(--border-glass);
             padding: 15px 16px;
         }
         .table-modern tbody td {
-            padding: 15px 16px;
+            padding: 14px 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             vertical-align: middle;
         }
-        .table-modern tbody tr { transition: background 0.2s ease; }
-        .table-modern tbody tr:hover { background: rgba(59, 130, 246, 0.08); }
+        .table-modern tbody tr:hover { background: rgba(16, 185, 129, 0.06); }
 
-        /* Avatar Initials */
-        .avatar-circle {
-            width: 38px;
-            height: 38px;
+        /* Month Badge Grid */
+        .month-pill {
+            padding: 8px 12px;
             border-radius: 10px;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            color: #fff;
-            font-weight: 700;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
         }
-        .avatar-large {
-            width: 84px;
-            height: 84px;
-            border-radius: 22px;
-            background: linear-gradient(135deg, #3b82f6, #06b6d4);
-            font-size: 2rem;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 12px 24px rgba(59, 130, 246, 0.35);
+        .month-lunas {
+            background: rgba(16, 185, 129, 0.18);
+            color: #34d399;
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+        .month-belum {
+            background: rgba(239, 68, 68, 0.12);
+            color: #f87171;
+            border-color: rgba(239, 68, 68, 0.3);
         }
 
-        /* Role Selector Pills on Login */
+        /* Role Selector Pills */
         .role-box {
             border: 1px solid rgba(148, 163, 184, 0.25);
             border-radius: 12px;
@@ -195,13 +186,12 @@
             background: rgba(6, 11, 25, 0.5);
         }
         .btn-check:checked + .role-box {
-            border-color: var(--accent-blue);
-            background: rgba(59, 130, 246, 0.18);
-            color: #60a5fa;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+            border-color: var(--accent-emerald);
+            background: rgba(16, 185, 129, 0.18);
+            color: #34d399;
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
         }
 
-        /* Animation */
         .fade-in { animation: fadeIn 0.35s ease-in-out; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -210,13 +200,13 @@
 
         .hidden { display: none !important; }
 
-        /* Print Layout */
+        /* Kuitansi Cetak */
         @media print {
             body { background: #fff !important; color: #000 !important; }
             .no-print { display: none !important; }
-            .glass-card { background: #fff !important; border: 1px solid #cbd5e1 !important; box-shadow: none !important; color: #000 !important; }
-            .table-modern, .table-modern th, .table-modern td { color: #000 !important; background: #fff !important; border-color: #cbd5e1 !important; }
-            .text-white, .text-info, .text-secondary { color: #000 !important; }
+            .glass-card { background: #fff !important; border: 2px solid #000 !important; box-shadow: none !important; color: #000 !important; }
+            .text-white, .text-info, .text-success, .text-secondary { color: #000 !important; }
+            .table-modern, .table-modern th, .table-modern td { color: #000 !important; background: #fff !important; border-color: #94a3b8 !important; }
         }
     </style>
 </head>
@@ -224,9 +214,9 @@
 
 <!-- ==================== TOAST NOTIFICATION ==================== -->
 <div class="toast-container position-fixed top-0 end-0 p-3 no-print" style="z-index: 9999;">
-    <div id="liveToast" class="toast align-items-center text-bg-primary border-0 rounded-3 shadow-lg" role="alert">
+    <div id="liveToast" class="toast align-items-center text-white border-0 rounded-3 shadow-lg" role="alert">
         <div class="d-flex">
-            <div class="toast-body fw-semibold" id="toastMsg">Berhasil!</div>
+            <div class="toast-body fw-semibold" id="toastMsg">Notifikasi</div>
             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
         </div>
     </div>
@@ -235,41 +225,39 @@
 <!-- ==================== 1. HALAMAN LOGIN ==================== -->
 <div id="loginSection" class="container d-flex align-items-center justify-content-center min-vh-100 py-4 fade-in">
     <div class="row w-100 justify-content-center align-items-center g-4">
-        <!-- Info Panel Kiri (Desktop) -->
         <div class="col-lg-5 d-none d-lg-block pe-4">
             <div class="d-flex align-items-center gap-3 mb-4">
-                <div class="brand-logo"><i class="bi bi-mortarboard-fill text-white"></i></div>
+                <div class="brand-logo"><i class="bi bi-wallet2 text-white"></i></div>
                 <div>
-                    <h4 class="fw-bold mb-0">Aplikasi Data Siswa</h4>
-                    <span class="text-info small">Sistem Informasi Akademik Digital</span>
+                    <h4 class="fw-bold mb-0">E-SPP Sekolah</h4>
+                    <span class="text-success small">Sistem Administrasi Pembayaran SPP</span>
                 </div>
             </div>
-            <h2 class="fw-bold lh-base mb-3">Kelola Data Siswa Lebih Cepat, Rapi & Terstruktur.</h2>
-            <p class="text-secondary mb-4">Dirancang untuk memudahkan Admin dan Guru dalam mencari, memantau, serta mencetak data siswa secara digital tanpa risiko kehilangan berkas.</p>
+            <h2 class="fw-bold lh-base mb-3">Kelola Transaksi & Laporan SPP Secara Digital.</h2>
+            <p class="text-secondary mb-4">Catat pembayaran bulanan siswa, pantau tunggakan otomatis, dan cetak bukti kuitansi resmi dalam hitungan detik.</p>
             <div class="glass-card p-3">
-                <div class="small text-info fw-semibold mb-2"><i class="bi bi-key-fill me-1"></i> Akun Demo Siap Pakai:</div>
+                <div class="small text-success fw-semibold mb-2"><i class="bi bi-shield-check me-1"></i> Akun Demo Aplikasi:</div>
                 <div class="d-flex justify-content-between small text-light border-bottom border-secondary border-opacity-25 pb-2 mb-2">
-                    <span><strong>Admin:</strong> <code>admin</code> / <code>admin123</code></span>
-                    <span class="badge bg-primary bg-opacity-25 text-info">Full Akses</span>
+                    <span><strong>Petugas / Admin:</strong> <code>admin</code> / <code>admin123</code></span>
+                    <span class="badge bg-success bg-opacity-25 text-success">Input & Bayar</span>
                 </div>
                 <div class="d-flex justify-content-between small text-light">
-                    <span><strong>Guru:</strong> <code>guru</code> / <code>guru123</code></span>
-                    <span class="badge bg-info bg-opacity-25 text-info">Lihat & Cetak</span>
+                    <span><strong>Kepala Sekolah:</strong> <code>kepsek</code> / <code>kepsek123</code></span>
+                    <span class="badge bg-info bg-opacity-25 text-info">Pantau Laporan</span>
                 </div>
             </div>
         </div>
 
-        <!-- Form Login Kanan -->
         <div class="col-md-7 col-lg-5">
             <div class="glass-card p-4 p-md-5">
                 <div class="text-center mb-4">
-                    <div class="brand-logo mx-auto mb-3"><i class="bi bi-shield-lock-fill text-white"></i></div>
-                    <h4 class="fw-bold mb-1">Selamat Datang</h4>
-                    <p class="text-secondary small">Silakan login sesuai hak akses Anda</p>
+                    <div class="brand-logo mx-auto mb-3"><i class="bi bi-cash-coin text-white"></i></div>
+                    <h4 class="fw-bold mb-1">Login Sistem SPP</h4>
+                    <p class="text-secondary small">Masuk untuk mengelola pembayaran siswa</p>
                 </div>
 
                 <div id="loginAlert" class="alert alert-danger bg-danger bg-opacity-25 text-danger border-danger border-opacity-50 py-2 small rounded-3 hidden">
-                    <i class="bi bi-exclamation-triangle-fill me-1"></i> Username, Password, atau Role tidak cocok!
+                    <i class="bi bi-exclamation-circle-fill me-1"></i> Username, Password, atau Role salah!
                 </div>
 
                 <form onsubmit="prosesLogin(event)">
@@ -277,17 +265,17 @@
                         <label class="form-label small text-secondary fw-semibold">Pilih Hak Akses</label>
                         <div class="row g-2">
                             <div class="col-6">
-                                <input type="radio" class="btn-check" name="loginRole" id="roleGuru" value="Guru" checked>
-                                <label class="role-box w-100 text-center" for="roleGuru">
-                                    <i class="bi bi-person-workspace d-block fs-4 mb-1"></i>
-                                    <span class="fw-semibold small">Guru</span>
+                                <input type="radio" class="btn-check" name="loginRole" id="roleAdmin" value="Admin" checked>
+                                <label class="role-box w-100 text-center" for="roleAdmin">
+                                    <i class="bi bi-person-badge-fill d-block fs-4 mb-1"></i>
+                                    <span class="fw-semibold small">Admin / Petugas</span>
                                 </label>
                             </div>
                             <div class="col-6">
-                                <input type="radio" class="btn-check" name="loginRole" id="roleAdmin" value="Admin">
-                                <label class="role-box w-100 text-center" for="roleAdmin">
-                                    <i class="bi bi-person-fill-gear d-block fs-4 mb-1"></i>
-                                    <span class="fw-semibold small">Admin</span>
+                                <input type="radio" class="btn-check" name="loginRole" id="roleKepsek" value="Kepala Sekolah">
+                                <label class="role-box w-100 text-center" for="roleKepsek">
+                                    <i class="bi bi-person-check-fill d-block fs-4 mb-1"></i>
+                                    <span class="fw-semibold small">Kepala Sekolah</span>
                                 </label>
                             </div>
                         </div>
@@ -295,22 +283,16 @@
 
                     <div class="mb-3">
                         <label class="form-label small text-secondary fw-semibold">Username</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-dark border-secondary border-opacity-25 text-secondary"><i class="bi bi-person"></i></span>
-                            <input type="text" id="loginUser" class="form-control" placeholder="Masukkan username" required>
-                        </div>
+                        <input type="text" id="loginUser" class="form-control" placeholder="Masukkan username" required>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label small text-secondary fw-semibold">Password</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-dark border-secondary border-opacity-25 text-secondary"><i class="bi bi-lock"></i></span>
-                            <input type="password" id="loginPass" class="form-control" placeholder="Masukkan password" required>
-                        </div>
+                        <input type="password" id="loginPass" class="form-control" placeholder="Masukkan password" required>
                     </div>
 
-                    <button type="submit" class="btn btn-gradient w-100 py-2">
-                        <i class="bi bi-box-arrow-in-right me-2"></i>MASUK KE APLIKASI
+                    <button type="submit" class="btn btn-gradient-success w-100 py-2">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>MASUK SISTEM
                     </button>
                 </form>
             </div>
@@ -318,272 +300,325 @@
     </div>
 </div>
 
-<!-- ==================== 2. APLIKASI UTAMA (DASHBOARD) ==================== -->
+<!-- ==================== 2. APLIKASI UTAMA ==================== -->
 <div id="appSection" class="container-fluid hidden">
     <div class="row">
-        <!-- Sidebar Navigasi -->
+        <!-- Sidebar -->
         <div class="col-lg-2 col-md-3 sidebar no-print d-flex flex-column justify-content-between">
             <div>
                 <div class="d-flex align-items-center gap-3 mb-4 px-2">
-                    <div class="brand-logo"><i class="bi bi-mortarboard-fill text-white"></i></div>
+                    <div class="brand-logo"><i class="bi bi-wallet2 text-white"></i></div>
                     <div>
-                        <h6 class="fw-bold mb-0">Data Siswa</h6>
-                        <span class="text-info" style="font-size: 0.72rem;">XII RPL 3 Project</span>
+                        <h6 class="fw-bold mb-0">E-SPP Digital</h6>
+                        <span class="text-success" style="font-size: 0.72rem;">TA 2026 / 2027</span>
                     </div>
                 </div>
 
-                <!-- Profil User Login -->
+                <!-- Info User -->
                 <div class="glass-card p-3 mb-4">
-                    <div class="d-flex align-items-center gap-2">
-                        <div class="avatar-circle" id="sidebarAvatar">A</div>
-                        <div class="overflow-hidden">
-                            <div class="fw-bold small text-truncate" id="userInfoName">Admin</div>
-                            <span class="badge bg-primary bg-opacity-25 text-info" style="font-size: 0.7rem;" id="userInfoRole">Administrator</span>
-                        </div>
-                    </div>
+                    <div class="fw-bold small text-white" id="userInfoName">ADMIN</div>
+                    <span class="badge bg-success bg-opacity-25 text-success mt-1" style="font-size: 0.72rem;" id="userInfoRole">Petugas TU</span>
                 </div>
 
-                <div class="small text-uppercase text-secondary fw-bold px-3 mb-2" style="font-size: 0.7rem; letter-spacing: 0.08em;">Menu Utama</div>
+                <div class="small text-uppercase text-secondary fw-bold px-3 mb-2" style="font-size: 0.7rem; letter-spacing: 0.08em;">Navigasi</div>
                 <nav class="nav flex-column">
                     <a class="nav-pill-custom active" id="menuDashboard" onclick="tampilHalaman('dashboard')">
-                        <i class="bi bi-grid-1x2-fill"></i> Dashboard & Siswa
+                        <i class="bi bi-grid-1x2-fill"></i> Dashboard
                     </a>
-                    <a class="nav-pill-custom" id="menuTambahSidebar" onclick="bukaFormTambah()">
-                        <i class="bi bi-person-plus-fill"></i> Tambah Data Siswa
+                    <a class="nav-pill-custom" id="menuTransaksi" onclick="tampilHalaman('transaksi')">
+                        <i class="bi bi-cash-stack"></i> Bayar SPP
                     </a>
-                    <a class="nav-pill-custom" id="menuPassword" onclick="tampilHalaman('password')">
-                        <i class="bi bi-shield-lock-fill"></i> Ganti Password
+                    <a class="nav-pill-custom" id="menuSiswa" onclick="tampilHalaman('siswa')">
+                        <i class="bi bi-people-fill"></i> Data Siswa
+                    </a>
+                    <a class="nav-pill-custom" id="menuRiwayat" onclick="tampilHalaman('riwayat')">
+                        <i class="bi bi-receipt-cutoff"></i> Riwayat & Laporan
                     </a>
                 </nav>
             </div>
 
             <div class="pt-3 border-top border-secondary border-opacity-25">
                 <a class="nav-pill-custom text-danger" onclick="prosesLogout()">
-                    <i class="bi bi-box-arrow-left"></i> Keluar (Logout)
+                    <i class="bi bi-box-arrow-left"></i> Logout
                 </a>
             </div>
         </div>
 
-        <!-- Area Konten Utama -->
+        <!-- Konten Utama -->
         <div class="col-lg-10 col-md-9 p-4 p-lg-5">
 
-            <!-- ========== SUB-HALAMAN 1: DASHBOARD & TABEL DATA ========== -->
+            <!-- ========== HALAMAN 1: DASHBOARD ========== -->
             <div id="pageDashboard" class="fade-in">
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
                     <div>
-                        <h3 class="fw-bold mb-1" id="judulDashboard">Dashboard Admin</h3>
-                        <p class="text-secondary small mb-0">Kelola, cari, dan cetak data siswa secara real-time</p>
+                        <h3 class="fw-bold mb-1">Dashboard Keuangan SPP</h3>
+                        <p class="text-secondary small mb-0">Ringkasan pemasukan SPP dan status pembayaran siswa</p>
                     </div>
-                    <div class="d-flex gap-2 no-print">
-                        <button onclick="window.print()" class="btn btn-outline-info rounded-3 px-3">
-                            <i class="bi bi-printer-fill me-2"></i>Cetak Laporan
-                        </button>
-                        <button id="btnTambahTop" onclick="bukaFormTambah()" class="btn btn-gradient">
-                            <i class="bi bi-plus-lg me-1"></i>Tambah Siswa
-                        </button>
-                    </div>
+                    <button id="btnQuickPay" onclick="tampilHalaman('transaksi')" class="btn btn-gradient-success no-print">
+                        <i class="bi bi-plus-circle-fill me-2"></i>Entri Pembayaran SPP
+                    </button>
                 </div>
 
-                <!-- Kartu Statistik -->
-                <div class="row g-3 mb-4 no-print">
+                <!-- Statistik Keuangan -->
+                <div class="row g-3 mb-4">
                     <div class="col-md-4">
                         <div class="glass-card stat-card p-4 d-flex align-items-center justify-content-between">
                             <div>
-                                <span class="text-secondary small fw-semibold">Total Siswa Terdaftar</span>
-                                <h2 id="totalSiswa" class="fw-extrabold mb-0 mt-1 text-white">0</h2>
-                            </div>
-                            <div class="stat-icon bg-primary bg-opacity-25 text-primary">
-                                <i class="bi bi-people-fill"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="glass-card stat-card p-4 d-flex align-items-center justify-content-between">
-                            <div>
-                                <span class="text-secondary small fw-semibold">Jumlah Rombel / Kelas</span>
-                                <h2 id="totalKelas" class="fw-extrabold mb-0 mt-1 text-info">0</h2>
-                            </div>
-                            <div class="stat-icon bg-info bg-opacity-25 text-info">
-                                <i class="bi bi-building-fill"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="glass-card stat-card p-4 d-flex align-items-center justify-content-between">
-                            <div>
-                                <span class="text-secondary small fw-semibold">Hak Akses Login</span>
-                                <h2 id="roleAktif" class="fw-extrabold mb-0 mt-1 text-success">Admin</h2>
+                                <span class="text-secondary small fw-semibold">Total Pemasukan SPP</span>
+                                <h3 id="statPemasukan" class="fw-extrabold mb-0 mt-1 text-success">Rp 0</h3>
                             </div>
                             <div class="stat-icon bg-success bg-opacity-25 text-success">
-                                <i class="bi bi-patch-check-fill"></i>
+                                <i class="bi bi-cash-coin"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="glass-card stat-card p-4 d-flex align-items-center justify-content-between">
+                            <div>
+                                <span class="text-secondary small fw-semibold">Total Transaksi Lunas</span>
+                                <h3 id="statTransaksi" class="fw-extrabold mb-0 mt-1 text-info">0 Bulan</h3>
+                            </div>
+                            <div class="stat-icon bg-info bg-opacity-25 text-info">
+                                <i class="bi bi-check2-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="glass-card stat-card p-4 d-flex align-items-center justify-content-between">
+                            <div>
+                                <span class="text-secondary small fw-semibold">Jumlah Siswa Aktif</span>
+                                <h3 id="statSiswa" class="fw-extrabold mb-0 mt-1 text-white">0 Siswa</h3>
+                            </div>
+                            <div class="stat-icon bg-primary bg-opacity-25 text-primary">
+                                <i class="bi bi-mortarboard-fill"></i>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tabel Data Siswa -->
+                <!-- Transaksi Terbaru -->
                 <div class="glass-card p-4">
-                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 no-print">
-                        <h5 class="fw-bold mb-0"><i class="bi bi-table text-primary me-2"></i>Daftar Data Siswa</h5>
-                        <div class="d-flex flex-wrap gap-2">
-                            <!-- Filter Kelas -->
-                            <select id="filterKelas" onchange="renderTabel()" class="form-select form-select-sm" style="width: 160px;">
-                                <option value="">Semua Kelas</option>
-                                <option value="XII RPL 1">XII RPL 1</option>
-                                <option value="XII RPL 2">XII RPL 2</option>
-                                <option value="XII RPL 3">XII RPL 3</option>
-                                <option value="XII IPA 1">XII IPA 1</option>
-                                <option value="XII IPS 1">XII IPS 1</option>
-                            </select>
-                            <!-- Kolom Pencarian -->
-                            <div class="input-group input-group-sm" style="width: 250px;">
-                                <span class="input-group-text bg-dark border-secondary border-opacity-25 text-secondary"><i class="bi bi-search"></i></span>
-                                <input type="text" id="inputCari" onkeyup="renderTabel()" class="form-control" placeholder="Cari NIS, Nama, Alamat...">
-                            </div>
-                        </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-clock-history text-success me-2"></i>Transaksi Pembayaran Terbaru</h5>
+                        <button onclick="tampilHalaman('riwayat')" class="btn btn-sm btn-outline-light rounded-3">Lihat Semua</button>
                     </div>
-
                     <div class="table-responsive rounded-3 border border-secondary border-opacity-25">
                         <table class="table table-modern align-middle">
                             <thead>
                                 <tr>
-                                    <th width="6%">No</th>
-                                    <th width="14%">NIS</th>
-                                    <th width="26%">Nama Siswa</th>
-                                    <th width="14%">Kelas</th>
-                                    <th width="22%">Alamat</th>
-                                    <th width="18%" class="text-center no-print">Aksi</th>
+                                    <th>No. Kuitansi</th>
+                                    <th>Tanggal</th>
+                                    <th>Siswa</th>
+                                    <th>Bulan Dibayar</th>
+                                    <th>Nominal</th>
+                                    <th class="text-center">Kuitansi</th>
                                 </tr>
                             </thead>
-                            <tbody id="tabelBody"></tbody>
+                            <tbody id="tabelTerbaru"></tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- ========== SUB-HALAMAN 2: FORM TAMBAH / EDIT SISWA ========== -->
-            <div id="pageForm" class="hidden fade-in">
-                <div class="glass-card p-4 p-md-5 mx-auto" style="max-width: 650px;">
-                    <div class="d-flex align-items-center gap-3 mb-4">
-                        <div class="stat-icon bg-primary bg-opacity-25 text-primary">
-                            <i class="bi bi-person-lines-fill"></i>
-                        </div>
-                        <div>
-                            <h4 id="judulForm" class="fw-bold mb-0">Tambah Data Siswa</h4>
-                            <p class="text-secondary small mb-0">Lengkapi formulir identitas siswa di bawah ini</p>
+            <!-- ========== HALAMAN 2: TRANSAKSI BAYAR SPP ========== -->
+            <div id="pageTransaksi" class="hidden fade-in">
+                <div class="row g-4">
+                    <!-- Form Pembayaran -->
+                    <div class="col-lg-5">
+                        <div class="glass-card p-4">
+                            <h4 class="fw-bold mb-1"><i class="bi bi-credit-card-2-front text-success me-2"></i>Transaksi SPP</h4>
+                            <p class="text-secondary small mb-4">Pilih siswa dan bulan yang akan dibayarkan</p>
+
+                            <form onsubmit="prosesBayarSPP(event)">
+                                <div class="mb-3">
+                                    <label class="form-label small text-secondary fw-semibold">Pilih Siswa</label>
+                                    <select id="pilihSiswaBayar" onchange="cekStatusBulanSiswa()" class="form-select" required></select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label small text-secondary fw-semibold">Bulan Pembayaran</label>
+                                    <select id="pilihBulanBayar" class="form-select" required></select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label small text-secondary fw-semibold">Nominal SPP per Bulan (Rp)</label>
+                                    <input type="number" id="inputNominal" class="form-control fw-bold text-success" value="250000" required>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label small text-secondary fw-semibold">Metode Pembayaran</label>
+                                    <select id="pilihMetode" class="form-select">
+                                        <option value="Tunai (Kas TU)">Tunai (Kas TU)</option>
+                                        <option value="Transfer Bank">Transfer Bank</option>
+                                        <option value="QRIS Sekolah">QRIS Sekolah</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="btn btn-gradient-success w-100 py-2">
+                                    <i class="bi bi-check-circle-fill me-2"></i>PROSES PEMBAYARAN SEKARANG
+                                </button>
+                            </form>
                         </div>
                     </div>
 
-                    <form onsubmit="simpanSiswa(event)">
-                        <input type="hidden" id="editIndex">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label small text-secondary fw-semibold">Nomor Induk Siswa (NIS)</label>
-                                <input type="text" id="inputNis" class="form-control" placeholder="Contoh: 004" required>
+                    <!-- Kartu Monitoring 12 Bulan Siswa Terpilih -->
+                    <div class="col-lg-7">
+                        <div class="glass-card p-4 h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h5 class="fw-bold mb-0">Kartu Kendali SPP Siswa</h5>
+                                    <p class="text-secondary small mb-0" id="infoKartuSiswa">Pilih siswa untuk melihat status lunas per bulan</p>
+                                </div>
+                                <span class="badge bg-primary bg-opacity-25 text-info px-3 py-2" id="badgeNominalSiswa">Rp 250.000 / bln</span>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label small text-secondary fw-semibold">Kelas</label>
-                                <select id="inputKelas" class="form-select" required>
-                                    <option value="">-- Pilih Kelas --</option>
-                                    <option value="XII RPL 1">XII RPL 1</option>
-                                    <option value="XII RPL 2">XII RPL 2</option>
-                                    <option value="XII RPL 3">XII RPL 3</option>
-                                    <option value="XII IPA 1">XII IPA 1</option>
-                                    <option value="XII IPS 1">XII IPS 1</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label small text-secondary fw-semibold">Nama Lengkap Siswa</label>
-                                <input type="text" id="inputNama" class="form-control" placeholder="Masukkan nama lengkap siswa" required>
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label small text-secondary fw-semibold">Alamat Lengkap</label>
-                                <textarea id="inputAlamat" rows="3" class="form-control" placeholder="Masukkan alamat lengkap tempat tinggal" required></textarea>
-                            </div>
+                            <hr class="border-secondary border-opacity-25">
+                            <div class="row g-2 mt-2" id="gridStatusBulan"></div>
                         </div>
-
-                        <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top border-secondary border-opacity-25">
-                            <button type="button" onclick="tampilHalaman('dashboard')" class="btn btn-outline-secondary px-4 rounded-3">Batal</button>
-                            <button type="submit" class="btn btn-gradient px-4"><i class="bi bi-check-circle me-2"></i>Simpan Data</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
-            <!-- ========== SUB-HALAMAN 3: DETAIL KARTU SISWA ========== -->
-            <div id="pageDetail" class="hidden fade-in">
-                <div class="glass-card p-4 p-md-5 mx-auto" style="max-width: 650px;">
-                    <div class="d-flex justify-content-between align-items-start mb-4">
+            <!-- ========== HALAMAN 3: DATA SISWA & STATUS ========== -->
+            <div id="pageSiswa" class="hidden fade-in">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+                    <div>
+                        <h3 class="fw-bold mb-1">Data Siswa & Rekap SPP</h3>
+                        <p class="text-secondary small mb-0">Kelola data siswa dan pantau jumlah bulan lunas</p>
+                    </div>
+                    <button id="btnTambahSiswa" class="btn btn-gradient-primary" data-bs-toggle="modal" data-bs-target="#modalSiswa" onclick="resetFormSiswa()">
+                        <i class="bi bi-person-plus-fill me-2"></i>Tambah Siswa Baru
+                    </button>
+                </div>
+
+                <div class="glass-card p-4">
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-4">
+                            <input type="text" id="cariSiswaInput" onkeyup="renderTabelSiswa()" class="form-control form-control-sm" placeholder="Cari NIS atau Nama Siswa...">
+                        </div>
+                    </div>
+                    <div class="table-responsive rounded-3 border border-secondary border-opacity-25">
+                        <table class="table table-modern align-middle">
+                            <thead>
+                                <tr>
+                                    <th>NIS</th>
+                                    <th>Nama Siswa</th>
+                                    <th>Kelas</th>
+                                    <th>Tarif SPP</th>
+                                    <th>Status Lunas</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelSiswaBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== HALAMAN 4: RIWAYAT & LAPORAN ========== -->
+            <div id="pageRiwayat" class="hidden fade-in">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+                    <div>
+                        <h3 class="fw-bold mb-1">Riwayat Transaksi & Laporan</h3>
+                        <p class="text-secondary small mb-0">Seluruh catatan pembayaran SPP yang masuk</p>
+                    </div>
+                    <button onclick="window.print()" class="btn btn-outline-success rounded-3 px-4 no-print">
+                        <i class="bi bi-printer-fill me-2"></i>Cetak Laporan Keuangan
+                    </button>
+                </div>
+
+                <div class="glass-card p-4">
+                    <div class="row g-2 mb-3 no-print">
+                        <div class="col-md-4">
+                            <input type="text" id="cariRiwayatInput" onkeyup="renderTabelRiwayat()" class="form-control form-control-sm" placeholder="Cari No. Kuitansi, Nama, Bulan...">
+                        </div>
+                    </div>
+                    <div class="table-responsive rounded-3 border border-secondary border-opacity-25">
+                        <table class="table table-modern align-middle">
+                            <thead>
+                                <tr>
+                                    <th>No. Kuitansi</th>
+                                    <th>Tanggal Bayar</th>
+                                    <th>NIS & Nama</th>
+                                    <th>Kelas</th>
+                                    <th>Bulan</th>
+                                    <th>Metode</th>
+                                    <th>Nominal</th>
+                                    <th class="text-center no-print">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelRiwayatBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== HALAMAN 5: CETAK KUITANSI RESMI ========== -->
+            <div id="pageKuitansi" class="hidden fade-in">
+                <div class="glass-card p-4 p-md-5 mx-auto" style="max-width: 680px;">
+                    <div class="d-flex justify-content-between align-items-center border-bottom border-secondary border-opacity-25 pb-3 mb-4">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="avatar-large text-white" id="detailAvatar">AP</div>
+                            <div class="brand-logo"><i class="bi bi-mortarboard-fill text-white"></i></div>
                             <div>
-                                <span class="badge bg-success bg-opacity-25 text-success mb-1">Status: Siswa Aktif</span>
-                                <h3 class="fw-bold mb-1" id="detailNamaHeader">Andi Pratama</h3>
-                                <p class="text-info mb-0 small fw-semibold" id="detailSub">NIS: 001 • Kelas: XII IPA 1</p>
+                                <h5 class="fw-bold mb-0">SMK NEGERI DIGITAL INDONESIA</h5>
+                                <span class="text-secondary small">Bukti Pembayaran Sumbangan Pembinaan Pendidikan (SPP)</span>
                             </div>
                         </div>
+                        <div class="text-end">
+                            <span class="badge bg-success bg-opacity-25 text-success px-3 py-2">LUNAS</span>
+                        </div>
                     </div>
 
-                    <div class="bg-dark bg-opacity-50 rounded-4 p-4 border border-secondary border-opacity-25">
+                    <div class="row g-3 mb-4 small">
+                        <div class="col-6">
+                            <div class="text-secondary">No. Kuitansi:</div>
+                            <div class="fw-bold font-monospace fs-6" id="kuitansiNo">-</div>
+                        </div>
+                        <div class="col-6 text-end">
+                            <div class="text-secondary">Tanggal Pembayaran:</div>
+                            <div class="fw-bold" id="kuitansiTgl">-</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-dark bg-opacity-50 rounded-4 p-4 border border-secondary border-opacity-25 mb-4">
                         <div class="row py-2 border-bottom border-secondary border-opacity-25">
-                            <div class="col-4 text-secondary small fw-semibold">Nomor Induk (NIS)</div>
-                            <div class="col-8 fw-bold" id="detailNis">001</div>
+                            <div class="col-5 text-secondary small">Telah Terima Dari</div>
+                            <div class="col-7 fw-bold" id="kuitansiNama">-</div>
                         </div>
                         <div class="row py-2 border-bottom border-secondary border-opacity-25">
-                            <div class="col-4 text-secondary small fw-semibold">Nama Lengkap</div>
-                            <div class="col-8 fw-bold" id="detailNama">Andi Pratama</div>
+                            <div class="col-5 text-secondary small">NIS / Kelas</div>
+                            <div class="col-7 fw-semibold" id="kuitansiKelas">-</div>
                         </div>
                         <div class="row py-2 border-bottom border-secondary border-opacity-25">
-                            <div class="col-4 text-secondary small fw-semibold">Kelas</div>
-                            <div class="col-8 fw-bold text-info" id="detailKelas">XII IPA 1</div>
+                            <div class="col-5 text-secondary small">Pembayaran Bulan</div>
+                            <div class="col-7 fw-bold text-info" id="kuitansiBulan">-</div>
                         </div>
-                        <div class="row pt-2">
-                            <div class="col-4 text-secondary small fw-semibold">Alamat Domisili</div>
-                            <div class="col-8" id="detailAlamat">Jl. Merdeka No. 10, Cirebon</div>
+                        <div class="row py-2 border-bottom border-secondary border-opacity-25">
+                            <div class="col-5 text-secondary small">Metode Bayar</div>
+                            <div class="col-7" id="kuitansiMetode">-</div>
                         </div>
-                    </div>
-
-                    <div class="d-flex flex-wrap gap-2 mt-4 no-print">
-                        <button onclick="window.print()" class="btn btn-success rounded-3 px-4">
-                            <i class="bi bi-printer-fill me-2"></i>Cetak Kartu Siswa
-                        </button>
-                        <button id="btnEditFromDetail" class="btn btn-warning rounded-3 px-3">
-                            <i class="bi bi-pencil-square me-1"></i>Edit
-                        </button>
-                        <button onclick="tampilHalaman('dashboard')" class="btn btn-outline-light rounded-3 px-4 ms-auto">
-                            <i class="bi bi-arrow-left me-1"></i>Kembali
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ========== SUB-HALAMAN 4: GANTI PASSWORD ========== -->
-            <div id="pagePassword" class="hidden fade-in">
-                <div class="glass-card p-4 p-md-5 mx-auto" style="max-width: 480px;">
-                    <div class="d-flex align-items-center gap-3 mb-4">
-                        <div class="stat-icon bg-warning bg-opacity-25 text-warning">
-                            <i class="bi bi-key-fill"></i>
-                        </div>
-                        <div>
-                            <h4 class="fw-bold mb-0">Ganti Password</h4>
-                            <p class="text-secondary small mb-0">Perbarui kata sandi keamanan akun Anda</p>
+                        <div class="row pt-3 align-items-center">
+                            <div class="col-5 text-secondary fw-bold">TOTAL DIBAYAR</div>
+                            <div class="col-7 fw-extrabold fs-4 text-success" id="kuitansiNominal">Rp 0</div>
                         </div>
                     </div>
 
-                    <form onsubmit="simpanPassword(event)">
-                        <div class="mb-3">
-                            <label class="form-label small text-secondary fw-semibold">Password Baru</label>
-                            <input type="password" id="passBaru" class="form-control" placeholder="Minimal 4 karakter" minlength="4" required>
+                    <div class="d-flex justify-content-between align-items-end mt-4 pt-2">
+                        <div class="small text-secondary">
+                            Dicetak otomatis oleh Sistem E-SPP<br>
+                            Simpan kuitansi ini sebagai bukti pembayaran sah.
                         </div>
-                        <div class="mb-4">
-                            <label class="form-label small text-secondary fw-semibold">Konfirmasi Password Baru</label>
-                            <input type="password" id="passKonfirmasi" class="form-control" placeholder="Ulangi password baru" minlength="4" required>
+                        <div class="text-center">
+                            <div class="small text-secondary mb-4">Petugas Administrasi,</div>
+                            <div class="fw-bold border-top border-secondary pt-1 px-3" id="kuitansiPetugas">Admin TU</div>
                         </div>
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-gradient w-100">Simpan Password Baru</button>
-                            <button type="button" onclick="tampilHalaman('dashboard')" class="btn btn-outline-secondary px-3 rounded-3">Batal</button>
-                        </div>
-                    </form>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4 pt-3 border-top border-secondary border-opacity-25 no-print">
+                        <button onclick="window.print()" class="btn btn-gradient-success px-4">
+                            <i class="bi bi-printer-fill me-2"></i>Cetak Kuitansi
+                        </button>
+                        <button onclick="tampilHalaman('riwayat')" class="btn btn-outline-light px-4 ms-auto rounded-3">Kembali</button>
+                    </div>
                 </div>
             </div>
 
@@ -591,286 +626,491 @@
     </div>
 </div>
 
-<!-- Bootstrap JS -->
+<!-- ==================== MODAL TAMBAH / EDIT SISWA ==================== -->
+<div class="modal fade" id="modalSiswa" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-card text-white border-secondary">
+            <div class="modal-header border-secondary border-opacity-25">
+                <h5 class="modal-title fw-bold" id="modalSiswaTitle">Tambah Siswa Baru</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form onsubmit="simpanDataSiswa(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="siswaEditIndex">
+                    <div class="mb-3">
+                        <label class="form-label small text-secondary">NIS</label>
+                        <input type="text" id="formNis" class="form-control" placeholder="Contoh: 2026006" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small text-secondary">Nama Lengkap Siswa</label>
+                        <input type="text" id="formNama" class="form-control" placeholder="Masukkan nama lengkap" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small text-secondary">Kelas</label>
+                        <select id="formKelas" class="form-select" required>
+                            <option value="XII RPL 1">XII RPL 1</option>
+                            <option value="XII RPL 2">XII RPL 2</option>
+                            <option value="XII RPL 3">XII RPL 3</option>
+                            <option value="XII IPA 1">XII IPA 1</option>
+                            <option value="XII IPS 1">XII IPS 1</option>
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label small text-secondary">Tarif SPP per Bulan (Rp)</label>
+                        <input type="number" id="formTarif" class="form-control" value="250000" required>
+                    </div>
+                </div>
+                <div class="modal-footer border-secondary border-opacity-25">
+                    <button type="button" class="btn btn-outline-secondary rounded-3" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-gradient-primary">Simpan Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // 1. Data Awal (Otomatis tersimpan di Browser / localStorage)
+    const daftarBulan = [
+        "Juli", "Agustus", "September", "Oktober", "November", "Desember",
+        "Januari", "Februari", "Maret", "April", "Mei", "Juni"
+    ];
+
+    // Data Awal Default
     const defaultUsers = [
         { username: 'admin', password: 'admin123', role: 'Admin' },
-        { username: 'guru', password: 'guru123', role: 'Guru' }
+        { username: 'kepsek', password: 'kepsek123', role: 'Kepala Sekolah' }
     ];
 
     const defaultSiswa = [
-        { nis: '001', nama: 'Andi Pratama', kelas: 'XII IPA 1', alamat: 'Jl. Merdeka No. 10, Cirebon' },
-        { nis: '002', nama: 'Budi Santoso', kelas: 'XII IPA 1', alamat: 'Jl. Kartini No. 5, Cirebon' },
-        { nis: '003', nama: 'Citra Lestari', kelas: 'XII IPS 1', alamat: 'Jl. Sudirman No. 22, Cirebon' },
-        { nis: '004', nama: 'Dewi Anggraini', kelas: 'XII RPL 3', alamat: 'Jl. Tuparev No. 88, Cirebon' },
-        { nis: '005', nama: 'Eko Setiawan', kelas: 'XII RPL 3', alamat: 'Jl. Cipto Mangunkusumo No. 14, Cirebon' }
+        { nis: '001', nama: 'Andi Pratama', kelas: 'XII RPL 3', tarif: 250000 },
+        { nis: '002', nama: 'Budi Santoso', kelas: 'XII RPL 3', tarif: 250000 },
+        { nis: '003', nama: 'Citra Lestari', kelas: 'XII IPA 1', tarif: 300000 },
+        { nis: '004', nama: 'Dewi Anggraini', kelas: 'XII IPS 1', tarif: 250000 }
     ];
 
-    if (!localStorage.getItem('users_v2')) localStorage.setItem('users_v2', JSON.stringify(defaultUsers));
-    if (!localStorage.getItem('siswa_v2')) localStorage.setItem('siswa_v2', JSON.stringify(defaultSiswa));
+    const defaultTransaksi = [
+        {
+            noKuitansi: 'SPP-20260701-01',
+            tanggal: '10 Juli 2026',
+            nis: '001',
+            nama: 'Andi Pratama',
+            kelas: 'XII RPL 3',
+            bulan: 'Juli',
+            metode: 'Tunai (Kas TU)',
+            nominal: 250000,
+            petugas: 'admin'
+        },
+        {
+            noKuitansi: 'SPP-20260802-02',
+            tanggal: '12 Agustus 2026',
+            nis: '001',
+            nama: 'Andi Pratama',
+            kelas: 'XII RPL 3',
+            bulan: 'Agustus',
+            metode: 'Transfer Bank',
+            nominal: 250000,
+            petugas: 'admin'
+        },
+        {
+            noKuitansi: 'SPP-20260705-03',
+            tanggal: '15 Juli 2026',
+            nis: '003',
+            nama: 'Citra Lestari',
+            kelas: 'XII IPA 1',
+            bulan: 'Juli',
+            metode: 'QRIS Sekolah',
+            nominal: 300000,
+            petugas: 'admin'
+        }
+    ];
 
-    let currentUser = JSON.parse(sessionStorage.getItem('loggedUser_v2'));
+    if (!localStorage.getItem('spp_users')) localStorage.setItem('spp_users', JSON.stringify(defaultUsers));
+    if (!localStorage.getItem('spp_siswa')) localStorage.setItem('spp_siswa', JSON.stringify(defaultSiswa));
+    if (!localStorage.getItem('spp_transaksi')) localStorage.setItem('spp_transaksi', JSON.stringify(defaultTransaksi));
 
-    // Fungsi Notifikasi Toast
-    function showToast(pesan, warna = 'bg-primary') {
+    let currentUser = JSON.parse(sessionStorage.getItem('spp_loggedUser'));
+
+    function formatRupiah(angka) {
+        return 'Rp ' + Number(angka).toLocaleString('id-ID');
+    }
+
+    function showToast(pesan, warna = 'bg-success') {
         const toastEl = document.getElementById('liveToast');
         toastEl.className = `toast align-items-center text-white border-0 rounded-3 shadow-lg ${warna}`;
         document.getElementById('toastMsg').innerText = pesan;
         new bootstrap.Toast(toastEl).show();
     }
 
-    // Inisial Nama untuk Avatar
-    function getInitials(nama) {
-        return nama.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
-    }
-
     window.onload = function() {
-        if (currentUser) masukDashboard();
+        if (currentUser) masukAplikasi();
     };
 
-    // 2. Proses Login
+    // 1. Login & Logout
     function prosesLogin(e) {
         e.preventDefault();
         const user = document.getElementById('loginUser').value.trim();
         const pass = document.getElementById('loginPass').value.trim();
         const role = document.querySelector('input[name="loginRole"]:checked').value;
 
-        const users = JSON.parse(localStorage.getItem('users_v2'));
+        const users = JSON.parse(localStorage.getItem('spp_users'));
         const found = users.find(u => u.username === user && u.password === pass && u.role === role);
 
         if (found) {
             currentUser = found;
-            sessionStorage.setItem('loggedUser_v2', JSON.stringify(found));
+            sessionStorage.setItem('spp_loggedUser', JSON.stringify(found));
             document.getElementById('loginAlert').classList.add('hidden');
-            masukDashboard();
-            showToast(`Selamat datang kembali, ${found.username}!`, 'bg-success');
+            masukAplikasi();
+            showToast(`Login berhasil sebagai ${found.role}`);
         } else {
             document.getElementById('loginAlert').classList.remove('hidden');
         }
     }
 
-    // 3. Masuk Dashboard
-    function masukDashboard() {
+    function masukAplikasi() {
         document.getElementById('loginSection').classList.add('hidden');
         document.getElementById('appSection').classList.remove('hidden');
 
-        document.getElementById('sidebarAvatar').innerText = getInitials(currentUser.username);
         document.getElementById('userInfoName').innerText = currentUser.username.toUpperCase();
         document.getElementById('userInfoRole').innerText = currentUser.role;
-        document.getElementById('judulDashboard').innerText = `Dashboard ${currentUser.role}`;
-        document.getElementById('roleAktif').innerText = currentUser.role;
 
-        // Pembatasan Hak Akses Guru vs Admin
-        const isGuru = currentUser.role === 'Guru';
-        document.getElementById('btnTambahTop').classList.toggle('hidden', isGuru);
-        document.getElementById('menuTambahSidebar').classList.toggle('hidden', isGuru);
+        // Batasi fitur input jika login sebagai Kepala Sekolah
+        const isKepsek = currentUser.role === 'Kepala Sekolah';
+        document.getElementById('menuTransaksi').classList.toggle('hidden', isKepsek);
+        document.getElementById('btnQuickPay').classList.toggle('hidden', isKepsek);
+        document.getElementById('btnTambahSiswa').classList.toggle('hidden', isKepsek);
 
         tampilHalaman('dashboard');
     }
 
-    // 4. Navigasi Halaman
-    function tampilHalaman(halaman) {
-        ['pageDashboard', 'pageForm', 'pageDetail', 'pagePassword'].forEach(id => {
-            document.getElementById(id).classList.add('hidden');
-        });
-        ['menuDashboard', 'menuTambahSidebar', 'menuPassword'].forEach(id => {
-            document.getElementById(id).classList.remove('active');
-        });
-
-        if (halaman === 'dashboard') {
-            document.getElementById('pageDashboard').classList.remove('hidden');
-            document.getElementById('menuDashboard').classList.add('active');
-            renderTabel();
-        } else if (halaman === 'form') {
-            document.getElementById('pageForm').classList.remove('hidden');
-            document.getElementById('menuTambahSidebar').classList.add('active');
-        } else if (halaman === 'detail') {
-            document.getElementById('pageDetail').classList.remove('hidden');
-        } else if (halaman === 'password') {
-            document.getElementById('pagePassword').classList.remove('hidden');
-            document.getElementById('menuPassword').classList.add('active');
+    function prosesLogout() {
+        if (confirm('Yakin ingin keluar dari sistem?')) {
+            sessionStorage.removeItem('spp_loggedUser');
+            currentUser = null;
+            document.getElementById('appSection').classList.add('hidden');
+            document.getElementById('loginSection').classList.remove('hidden');
         }
     }
 
-    // 5. Render Tabel & Filter Pencarian
-    function renderTabel() {
-        const dataSiswa = JSON.parse(localStorage.getItem('siswa_v2')) || [];
-        const keyword = document.getElementById('inputCari').value.toLowerCase();
-        const kelasFilter = document.getElementById('filterKelas').value;
-        const tbody = document.getElementById('tabelBody');
+    // 2. Navigasi Halaman
+    function tampilHalaman(hal) {
+        ['pageDashboard', 'pageTransaksi', 'pageSiswa', 'pageRiwayat', 'pageKuitansi'].forEach(id => {
+            document.getElementById(id).classList.add('hidden');
+        });
+        ['menuDashboard', 'menuTransaksi', 'menuSiswa', 'menuRiwayat'].forEach(id => {
+            document.getElementById(id).classList.remove('active');
+        });
+
+        if (hal === 'dashboard') {
+            document.getElementById('pageDashboard').classList.remove('hidden');
+            document.getElementById('menuDashboard').classList.add('active');
+            renderDashboard();
+        } else if (hal === 'transaksi') {
+            document.getElementById('pageTransaksi').classList.remove('hidden');
+            document.getElementById('menuTransaksi').classList.add('active');
+            initFormTransaksi();
+        } else if (hal === 'siswa') {
+            document.getElementById('pageSiswa').classList.remove('hidden');
+            document.getElementById('menuSiswa').classList.add('active');
+            renderTabelSiswa();
+        } else if (hal === 'riwayat') {
+            document.getElementById('pageRiwayat').classList.remove('hidden');
+            document.getElementById('menuRiwayat').classList.add('active');
+            renderTabelRiwayat();
+        } else if (hal === 'kuitansi') {
+            document.getElementById('pageKuitansi').classList.remove('hidden');
+        }
+    }
+
+    // 3. Render Dashboard
+    function renderDashboard() {
+        const siswaList = JSON.parse(localStorage.getItem('spp_siswa')) || [];
+        const trxList = JSON.parse(localStorage.getItem('spp_transaksi')) || [];
+
+        const totalUang = trxList.reduce((sum, item) => sum + Number(item.nominal), 0);
+        document.getElementById('statPemasukan').innerText = formatRupiah(totalUang);
+        document.getElementById('statTransaksi').innerText = `${trxList.length} Transaksi`;
+        document.getElementById('statSiswa').innerText = `${siswaList.length} Siswa`;
+
+        const tbody = document.getElementById('tabelTerbaru');
         tbody.innerHTML = '';
 
-        // Update Statistik
-        document.getElementById('totalSiswa').innerText = dataSiswa.length;
-        const uniqueKelas = [...new Set(dataSiswa.map(s => s.kelas))];
-        document.getElementById('totalKelas').innerText = uniqueKelas.length;
-
-        const filtered = dataSiswa
-            .map((item, index) => ({ ...item, originalIndex: index }))
-            .filter(item => {
-                const matchText = item.nis.toLowerCase().includes(keyword) ||
-                                  item.nama.toLowerCase().includes(keyword) ||
-                                  item.alamat.toLowerCase().includes(keyword);
-                const matchKelas = kelasFilter === '' || item.kelas === kelasFilter;
-                return matchText && matchKelas;
-            });
-
-        if (filtered.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="6" class="text-center text-secondary py-5"><i class="bi bi-inbox fs-2 d-block mb-2"></i>Data siswa tidak ditemukan</td></tr>`;
+        const terbaru = trxList.slice(0, 5);
+        if (terbaru.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" class="text-center text-secondary py-4">Belum ada transaksi pembayaran.</td></tr>`;
             return;
         }
 
-        filtered.forEach((siswa, i) => {
-            let tombolAksi = `
-                <button onclick="lihatDetail(${siswa.originalIndex})" class="btn btn-sm btn-info bg-opacity-25 text-info border-0 rounded-2" title="Lihat Detail">
-                    <i class="bi bi-eye-fill"></i>
-                </button>
-            `;
-
-            if (currentUser.role === 'Admin') {
-                tombolAksi += `
-                    <button onclick="bukaFormEdit(${siswa.originalIndex})" class="btn btn-sm btn-warning bg-opacity-25 text-warning border-0 rounded-2 ms-1" title="Edit Data">
-                        <i class="bi bi-pencil-fill"></i>
-                    </button>
-                    <button onclick="hapusSiswa(${siswa.originalIndex})" class="btn btn-sm btn-danger bg-opacity-25 text-danger border-0 rounded-2 ms-1" title="Hapus Data">
-                        <i class="bi bi-trash-fill"></i>
-                    </button>
-                `;
-            }
-
+        terbaru.forEach((trx, idx) => {
             tbody.innerHTML += `
                 <tr>
-                    <td class="text-secondary">${i + 1}</td>
-                    <td><span class="badge bg-secondary bg-opacity-25 text-light font-monospace">${siswa.nis}</span></td>
-                    <td>
-                        <div class="d-flex align-items-center gap-2">
-                            <div class="avatar-circle">${getInitials(siswa.nama)}</div>
-                            <span class="fw-semibold text-white">${siswa.nama}</span>
-                        </div>
+                    <td><span class="font-monospace text-info small">${trx.noKuitansi}</span></td>
+                    <td class="text-secondary small">${trx.tanggal}</td>
+                    <td><strong class="text-white">${trx.nama}</strong> <span class="badge bg-secondary bg-opacity-25 ms-1">${trx.kelas}</span></td>
+                    <td><span class="badge bg-success bg-opacity-25 text-success">${trx.bulan}</span></td>
+                    <td class="fw-bold text-success">${formatRupiah(trx.nominal)}</td>
+                    <td class="text-center">
+                        <button onclick="bukaKuitansi(${idx})" class="btn btn-sm btn-outline-info rounded-2">
+                            <i class="bi bi-printer"></i> Kuitansi
+                        </button>
                     </td>
-                    <td><span class="badge bg-primary bg-opacity-25 text-info">${siswa.kelas}</span></td>
-                    <td class="text-secondary small">${siswa.alamat}</td>
-                    <td class="text-center no-print">${tombolAksi}</td>
                 </tr>
             `;
         });
     }
 
-    // 6. Tambah & Edit Siswa
-    function bukaFormTambah() {
-        document.getElementById('judulForm').innerText = 'Tambah Data Siswa Baru';
-        document.getElementById('editIndex').value = '';
-        document.getElementById('inputNis').value = '';
-        document.getElementById('inputNama').value = '';
-        document.getElementById('inputKelas').value = '';
-        document.getElementById('inputAlamat').value = '';
-        tampilHalaman('form');
+    // 4. Transaksi Bayar SPP
+    function initFormTransaksi() {
+        const siswaList = JSON.parse(localStorage.getItem('spp_siswa')) || [];
+        const selectSiswa = document.getElementById('pilihSiswaBayar');
+        selectSiswa.innerHTML = '';
+
+        siswaList.forEach(s => {
+            selectSiswa.innerHTML += `<option value="${s.nis}">${s.nis} - ${s.nama} (${s.kelas})</option>`;
+        });
+
+        cekStatusBulanSiswa();
     }
 
-    function bukaFormEdit(index) {
-        const siswa = JSON.parse(localStorage.getItem('siswa_v2'))[index];
-        document.getElementById('judulForm').innerText = 'Edit Data Siswa';
-        document.getElementById('editIndex').value = index;
-        document.getElementById('inputNis').value = siswa.nis;
-        document.getElementById('inputNama').value = siswa.nama;
-        document.getElementById('inputKelas').value = siswa.kelas;
-        document.getElementById('inputAlamat').value = siswa.alamat;
-        tampilHalaman('form');
+    function cekStatusBulanSiswa() {
+        const nis = document.getElementById('pilihSiswaBayar').value;
+        const siswaList = JSON.parse(localStorage.getItem('spp_siswa')) || [];
+        const trxList = JSON.parse(localStorage.getItem('spp_transaksi')) || [];
+
+        const siswa = siswaList.find(s => s.nis === nis);
+        if (!siswa) return;
+
+        document.getElementById('inputNominal').value = siswa.tarif;
+        document.getElementById('infoKartuSiswa').innerText = `${siswa.nama} (${siswa.kelas})`;
+        document.getElementById('badgeNominalSiswa').innerText = `${formatRupiah(siswa.tarif)} / bln`;
+
+        const bulanLunas = trxList.filter(t => t.nis === nis).map(t => t.bulan);
+
+        // Update dropdown bulan (hanya tampilkan bulan yang belum lunas)
+        const selectBulan = document.getElementById('pilihBulanBayar');
+        selectBulan.innerHTML = '';
+        daftarBulan.forEach(bln => {
+            if (!bulanLunas.includes(bln)) {
+                selectBulan.innerHTML += `<option value="${bln}">${bln} 2026/2027</option>`;
+            }
+        });
+
+        // Render Grid 12 Bulan
+        const grid = document.getElementById('gridStatusBulan');
+        grid.innerHTML = '';
+        daftarBulan.forEach(bln => {
+            const isLunas = bulanLunas.includes(bln);
+            grid.innerHTML += `
+                <div class="col-6 col-sm-4 col-md-3">
+                    <div class="month-pill ${isLunas ? 'month-lunas' : 'month-belum'}">
+                        <div>${bln}</div>
+                        <small style="font-size: 0.68rem;">${isLunas ? '✓ LUNAS' : 'BELUM'}</small>
+                    </div>
+                </div>
+            `;
+        });
     }
 
-    function simpanSiswa(e) {
+    function prosesBayarSPP(e) {
         e.preventDefault();
-        const dataSiswa = JSON.parse(localStorage.getItem('siswa_v2'));
-        const index = document.getElementById('editIndex').value;
+        const nis = document.getElementById('pilihSiswaBayar').value;
+        const bulan = document.getElementById('pilihBulanBayar').value;
+        const nominal = Number(document.getElementById('inputNominal').value);
+        const metode = document.getElementById('pilihMetode').value;
 
-        const siswaObj = {
-            nis: document.getElementById('inputNis').value.trim(),
-            nama: document.getElementById('inputNama').value.trim(),
-            kelas: document.getElementById('inputKelas').value,
-            alamat: document.getElementById('inputAlamat').value.trim()
-        };
-
-        if (index === '') {
-            dataSiswa.unshift(siswaObj);
-            showToast('Data siswa berhasil ditambahkan!', 'bg-success');
-        } else {
-            dataSiswa[index] = siswaObj;
-            showToast('Data siswa berhasil diperbarui!', 'bg-info');
-        }
-
-        localStorage.setItem('siswa_v2', JSON.stringify(dataSiswa));
-        tampilHalaman('dashboard');
-    }
-
-    // 7. Hapus Siswa
-    function hapusSiswa(index) {
-        if (confirm('Apakah Anda yakin ingin menghapus data siswa ini?')) {
-            const dataSiswa = JSON.parse(localStorage.getItem('siswa_v2'));
-            dataSiswa.splice(index, 1);
-            localStorage.setItem('siswa_v2', JSON.stringify(dataSiswa));
-            renderTabel();
-            showToast('Data siswa telah dihapus.', 'bg-danger');
-        }
-    }
-
-    // 8. Detail Siswa
-    function lihatDetail(index) {
-        const siswa = JSON.parse(localStorage.getItem('siswa_v2'))[index];
-        document.getElementById('detailAvatar').innerText = getInitials(siswa.nama);
-        document.getElementById('detailNamaHeader').innerText = siswa.nama;
-        document.getElementById('detailSub').innerText = `NIS: ${siswa.nis} • Kelas: ${siswa.kelas}`;
-        document.getElementById('detailNis').innerText = siswa.nis;
-        document.getElementById('detailNama').innerText = siswa.nama;
-        document.getElementById('detailKelas').innerText = siswa.kelas;
-        document.getElementById('detailAlamat').innerText = siswa.alamat;
-
-        const btnEdit = document.getElementById('btnEditFromDetail');
-        if (currentUser.role === 'Admin') {
-            btnEdit.classList.remove('hidden');
-            btnEdit.onclick = () => bukaFormEdit(index);
-        } else {
-            btnEdit.classList.add('hidden');
-        }
-
-        tampilHalaman('detail');
-    }
-
-    // 9. Ganti Password
-    function simpanPassword(e) {
-        e.preventDefault();
-        const baru = document.getElementById('passBaru').value.trim();
-        const konfirmasi = document.getElementById('passKonfirmasi').value.trim();
-
-        if (baru !== konfirmasi) {
-            showToast('Konfirmasi password tidak cocok!', 'bg-danger');
+        if (!bulan) {
+            showToast('Semua bulan untuk siswa ini sudah lunas!', 'bg-warning');
             return;
         }
 
-        const users = JSON.parse(localStorage.getItem('users_v2'));
-        const idx = users.findIndex(u => u.username === currentUser.username && u.role === currentUser.role);
-        if (idx !== -1) {
-            users[idx].password = baru;
-            currentUser.password = baru;
-            localStorage.setItem('users_v2', JSON.stringify(users));
-            sessionStorage.setItem('loggedUser_v2', JSON.stringify(currentUser));
-            document.getElementById('passBaru').value = '';
-            document.getElementById('passKonfirmasi').value = '';
-            showToast('Password berhasil diperbarui!', 'bg-success');
-            tampilHalaman('dashboard');
+        const siswa = JSON.parse(localStorage.getItem('spp_siswa')).find(s => s.nis === nis);
+        const trxList = JSON.parse(localStorage.getItem('spp_transaksi')) || [];
+
+        const today = new Date();
+        const tglStr = today.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+        const noKuitansi = `SPP-${today.getFullYear()}${String(today.getMonth()+1).padStart(2,'0')}-${Math.floor(100 + Math.random()*900)}`;
+
+        const transaksiBaru = {
+            noKuitansi,
+            tanggal: tglStr,
+            nis: siswa.nis,
+            nama: siswa.nama,
+            kelas: siswa.kelas,
+            bulan,
+            metode,
+            nominal,
+            petugas: currentUser.username
+        };
+
+        trxList.unshift(transaksiBaru);
+        localStorage.setItem('spp_transaksi', JSON.stringify(trxList));
+
+        showToast(`Pembayaran SPP bulan ${bulan} berhasil dicatat!`);
+        cekStatusBulanSiswa();
+        bukaKuitansi(0);
+    }
+
+    // 5. Data Siswa CRUD
+    function renderTabelSiswa() {
+        const siswaList = JSON.parse(localStorage.getItem('spp_siswa')) || [];
+        const trxList = JSON.parse(localStorage.getItem('spp_transaksi')) || [];
+        const keyword = document.getElementById('cariSiswaInput').value.toLowerCase();
+        const tbody = document.getElementById('tabelSiswaBody');
+        tbody.innerHTML = '';
+
+        const filtered = siswaList
+            .map((s, idx) => ({ ...s, idx }))
+            .filter(s => s.nis.toLowerCase().includes(keyword) || s.nama.toLowerCase().includes(keyword));
+
+        filtered.forEach(s => {
+            const jmlLunas = trxList.filter(t => t.nis === s.nis).length;
+            let tombolAksi = `<button onclick="bayarLangsung('${s.nis}')" class="btn btn-sm btn-success bg-opacity-25 text-success border-0">Bayar</button>`;
+
+            if (currentUser.role === 'Admin') {
+                tombolAksi += `
+                    <button onclick="editSiswa(${s.idx})" class="btn btn-sm btn-warning bg-opacity-25 text-warning border-0 ms-1"><i class="bi bi-pencil"></i></button>
+                    <button onclick="hapusSiswa(${s.idx})" class="btn btn-sm btn-danger bg-opacity-25 text-danger border-0 ms-1"><i class="bi bi-trash"></i></button>
+                `;
+            }
+
+            tbody.innerHTML += `
+                <tr>
+                    <td class="font-monospace">${s.nis}</td>
+                    <td class="fw-bold text-white">${s.nama}</td>
+                    <td><span class="badge bg-primary bg-opacity-25 text-info">${s.kelas}</span></td>
+                    <td>${formatRupiah(s.tarif)}</td>
+                    <td>
+                        <span class="badge ${jmlLunas === 12 ? 'bg-success' : 'bg-warning text-dark'}">
+                            ${jmlLunas} / 12 Bulan Lunas
+                        </span>
+                    </td>
+                    <td class="text-center">${tombolAksi}</td>
+                </tr>
+            `;
+        });
+    }
+
+    function bayarLangsung(nis) {
+        tampilHalaman('transaksi');
+        document.getElementById('pilihSiswaBayar').value = nis;
+        cekStatusBulanSiswa();
+    }
+
+    function resetFormSiswa() {
+        document.getElementById('modalSiswaTitle').innerText = 'Tambah Siswa Baru';
+        document.getElementById('siswaEditIndex').value = '';
+        document.getElementById('formNis').value = '';
+        document.getElementById('formNama').value = '';
+        document.getElementById('formTarif').value = 250000;
+    }
+
+    function editSiswa(idx) {
+        const s = JSON.parse(localStorage.getItem('spp_siswa'))[idx];
+        document.getElementById('modalSiswaTitle').innerText = 'Edit Data Siswa';
+        document.getElementById('siswaEditIndex').value = idx;
+        document.getElementById('formNis').value = s.nis;
+        document.getElementById('formNama').value = s.nama;
+        document.getElementById('formKelas').value = s.kelas;
+        document.getElementById('formTarif').value = s.tarif;
+        new bootstrap.Modal(document.getElementById('modalSiswa')).show();
+    }
+
+    function simpanDataSiswa(e) {
+        e.preventDefault();
+        const siswaList = JSON.parse(localStorage.getItem('spp_siswa')) || [];
+        const idx = document.getElementById('siswaEditIndex').value;
+
+        const obj = {
+            nis: document.getElementById('formNis').value.trim(),
+            nama: document.getElementById('formNama').value.trim(),
+            kelas: document.getElementById('formKelas').value,
+            tarif: Number(document.getElementById('formTarif').value)
+        };
+
+        if (idx === '') {
+            siswaList.push(obj);
+            showToast('Siswa baru berhasil ditambahkan!');
+        } else {
+            siswaList[idx] = obj;
+            showToast('Data siswa diperbarui!');
+        }
+
+        localStorage.setItem('spp_siswa', JSON.stringify(siswaList));
+        bootstrap.Modal.getInstance(document.getElementById('modalSiswa')).hide();
+        renderTabelSiswa();
+    }
+
+    function hapusSiswa(idx) {
+        if (confirm('Hapus data siswa ini?')) {
+            const siswaList = JSON.parse(localStorage.getItem('spp_siswa'));
+            siswaList.splice(idx, 1);
+            localStorage.setItem('spp_siswa', JSON.stringify(siswaList));
+            renderTabelSiswa();
+            showToast('Siswa berhasil dihapus.', 'bg-danger');
         }
     }
 
-    // 10. Logout
-    function prosesLogout() {
-        if (confirm('Keluar dari aplikasi?')) {
-            sessionStorage.removeItem('loggedUser_v2');
-            currentUser = null;
-            document.getElementById('appSection').classList.add('hidden');
-            document.getElementById('loginSection').classList.remove('hidden');
-            document.getElementById('loginUser').value = '';
-            document.getElementById('loginPass').value = '';
+    // 6. Riwayat & Cetak Kuitansi
+    function renderTabelRiwayat() {
+        const trxList = JSON.parse(localStorage.getItem('spp_transaksi')) || [];
+        const keyword = document.getElementById('cariRiwayatInput').value.toLowerCase();
+        const tbody = document.getElementById('tabelRiwayatBody');
+        tbody.innerHTML = '';
+
+        const filtered = trxList
+            .map((t, idx) => ({ ...t, idx }))
+            .filter(t =>
+                t.noKuitansi.toLowerCase().includes(keyword) ||
+                t.nama.toLowerCase().includes(keyword) ||
+                t.bulan.toLowerCase().includes(keyword)
+            );
+
+        filtered.forEach(t => {
+            let btnHapus = currentUser.role === 'Admin'
+                ? `<button onclick="hapusTransaksi(${t.idx})" class="btn btn-sm btn-danger bg-opacity-25 text-danger border-0 ms-1"><i class="bi bi-trash"></i></button>`
+                : '';
+
+            tbody.innerHTML += `
+                <tr>
+                    <td class="font-monospace text-info small">${t.noKuitansi}</td>
+                    <td class="small text-secondary">${t.tanggal}</td>
+                    <td><strong>${t.nama}</strong> <span class="text-secondary small">(${t.nis})</span></td>
+                    <td>${t.kelas}</td>
+                    <td><span class="badge bg-success bg-opacity-25 text-success">${t.bulan}</span></td>
+                    <td class="small">${t.metode}</td>
+                    <td class="fw-bold text-success">${formatRupiah(t.nominal)}</td>
+                    <td class="text-center no-print">
+                        <button onclick="bukaKuitansi(${t.idx})" class="btn btn-sm btn-info bg-opacity-25 text-info border-0"><i class="bi bi-printer"></i></button>
+                        ${btnHapus}
+                    </td>
+                </tr>
+            `;
+        });
+    }
+
+    function bukaKuitansi(idx) {
+        const trx = JSON.parse(localStorage.getItem('spp_transaksi'))[idx];
+        if (!trx) return;
+
+        document.getElementById('kuitansiNo').innerText = trx.noKuitansi;
+        document.getElementById('kuitansiTgl').innerText = trx.tanggal;
+        document.getElementById('kuitansiNama').innerText = trx.nama;
+        document.getElementById('kuitansiKelas').innerText = `${trx.nis} / ${trx.kelas}`;
+        document.getElementById('kuitansiBulan').innerText = `SPP Bulan ${trx.bulan} (TA 2026/2027)`;
+        document.getElementById('kuitansiMetode').innerText = trx.metode;
+        document.getElementById('kuitansiNominal').innerText = formatRupiah(trx.nominal);
+        document.getElementById('kuitansiPetugas').innerText = trx.petugas.toUpperCase();
+
+        tampilHalaman('kuitansi');
+    }
+
+    function hapusTransaksi(idx) {
+        if (confirm('Batalkan dan hapus transaksi ini?')) {
+            const trxList = JSON.parse(localStorage.getItem('spp_transaksi'));
+            trxList.splice(idx, 1);
+            localStorage.setItem('spp_transaksi', JSON.stringify(trxList));
+            renderTabelRiwayat();
+            showToast('Transaksi dihapus.', 'bg-danger');
         }
     }
 </script>
