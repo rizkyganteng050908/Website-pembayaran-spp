@@ -3,115 +3,456 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Data Siswa</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Aplikasi Data Siswa - Modern UI</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 & Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        body { background-color: #0b132b; color: #fff; font-family: 'Segoe UI', sans-serif; }
-        .card-dark { background-color: #1c2541; border: 1px solid #3a506b; border-radius: 12px; }
-        .form-control, .form-select { background-color: #0b132b; border: 1px solid #3a506b; color: #fff; }
-        .form-control:focus, .form-select:focus { background-color: #0b132b; color: #fff; border-color: #3b82f6; box-shadow: none; }
-        .sidebar { background-color: #1c2541; min-height: 100vh; padding: 20px; border-right: 1px solid #3a506b; }
-        .nav-link { color: #cbd5e1; margin-bottom: 8px; border-radius: 8px; cursor: pointer; }
-        .nav-link:hover, .nav-link.active { background-color: #2563eb; color: #fff; }
+        :root {
+            --bg-main: #060b19;
+            --bg-card: rgba(17, 25, 48, 0.78);
+            --bg-sidebar: #0b1224;
+            --border-glass: rgba(255, 255, 255, 0.09);
+            --accent-blue: #3b82f6;
+            --accent-indigo: #6366f1;
+            --accent-cyan: #06b6d4;
+            --text-muted: #94a3b8;
+        }
+
+        * { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body {
+            background-color: var(--bg-main);
+            background-image:
+                radial-gradient(at 15% 15%, rgba(59, 130, 246, 0.16) 0px, transparent 50%),
+                radial-gradient(at 85% 85%, rgba(99, 102, 241, 0.14) 0px, transparent 50%);
+            color: #f8fafc;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Form Inputs */
+        .form-control, .form-select {
+            background-color: rgba(6, 11, 25, 0.75) !important;
+            border: 1px solid rgba(148, 163, 184, 0.25) !important;
+            color: #f8fafc !important;
+            border-radius: 12px;
+            padding: 11px 15px;
+            transition: all 0.25s ease;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--accent-blue) !important;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.18) !important;
+        }
+        .form-control::placeholder { color: #64748b; }
+
+        /* Buttons */
+        .btn-gradient {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 12px;
+            padding: 11px 22px;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(59, 130, 246, 0.45);
+            color: #fff;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-glass);
+            min-height: 100vh;
+            padding: 26px 18px;
+            position: sticky;
+            top: 0;
+        }
+        .brand-logo {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+        }
+        .nav-pill-custom {
+            color: var(--text-muted);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        .nav-pill-custom:hover {
+            background: rgba(59, 130, 246, 0.12);
+            color: #fff;
+        }
+        .nav-pill-custom.active {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(99, 102, 241, 0.2));
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.35);
+            font-weight: 600;
+        }
+
+        /* Stat Cards */
+        .stat-card {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.25s ease;
+        }
+        .stat-card:hover { transform: translateY(-4px); }
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* Table Styling */
+        .table-modern {
+            color: #e2e8f0;
+            margin-bottom: 0;
+        }
+        .table-modern thead th {
+            background: rgba(15, 23, 42, 0.85);
+            color: #93c5fd;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            border-bottom: 1px solid var(--border-glass);
+            padding: 15px 16px;
+        }
+        .table-modern tbody td {
+            padding: 15px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: middle;
+        }
+        .table-modern tbody tr { transition: background 0.2s ease; }
+        .table-modern tbody tr:hover { background: rgba(59, 130, 246, 0.08); }
+
+        /* Avatar Initials */
+        .avatar-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .avatar-large {
+            width: 84px;
+            height: 84px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            font-size: 2rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 24px rgba(59, 130, 246, 0.35);
+        }
+
+        /* Role Selector Pills on Login */
+        .role-box {
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(6, 11, 25, 0.5);
+        }
+        .btn-check:checked + .role-box {
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.18);
+            color: #60a5fa;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+        }
+
+        /* Animation */
+        .fade-in { animation: fadeIn 0.35s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .hidden { display: none !important; }
+
+        /* Print Layout */
         @media print {
-            body { background-color: #fff; color: #000; }
+            body { background: #fff !important; color: #000 !important; }
             .no-print { display: none !important; }
-            .card-dark { background-color: #fff; border: 1px solid #ccc; color: #000; }
-            .table { color: #000 !important; }
+            .glass-card { background: #fff !important; border: 1px solid #cbd5e1 !important; box-shadow: none !important; color: #000 !important; }
+            .table-modern, .table-modern th, .table-modern td { color: #000 !important; background: #fff !important; border-color: #cbd5e1 !important; }
+            .text-white, .text-info, .text-secondary { color: #000 !important; }
         }
     </style>
 </head>
 <body>
 
-<!-- ==================== 1. HALAMAN LOGIN ==================== -->
-<div id="loginSection" class="container d-flex align-items-center justify-content-center" style="height: 100vh;">
-    <div class="card-dark p-4 text-center" style="width: 100%; max-width: 400px;">
-        <h4 class="fw-bold mb-1">LOGIN</h4>
-        <p class="text-secondary small mb-4">Aplikasi Data Siswa (Tanpa Database)</p>
-        <div id="loginAlert" class="alert alert-danger py-2 small hidden">Username, Password, atau Role salah!</div>
-        
-        <form onsubmit="prosesLogin(event)">
-            <div class="mb-3">
-                <input type="text" id="loginUser" class="form-control" placeholder="Username (admin / guru)" required>
-            </div>
-            <div class="mb-3">
-                <input type="password" id="loginPass" class="form-control" placeholder="Password (admin123 / guru123)" required>
-            </div>
-            <div class="mb-4 d-flex justify-content-center gap-4">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="loginRole" id="roleGuru" value="Guru" checked>
-                    <label class="form-check-label" for="roleGuru">Guru</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="loginRole" id="roleAdmin" value="Admin">
-                    <label class="form-check-label" for="roleAdmin">Admin</label>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary w-100 fw-bold">LOGIN</button>
-        </form>
+<!-- ==================== TOAST NOTIFICATION ==================== -->
+<div class="toast-container position-fixed top-0 end-0 p-3 no-print" style="z-index: 9999;">
+    <div id="liveToast" class="toast align-items-center text-bg-primary border-0 rounded-3 shadow-lg" role="alert">
+        <div class="d-flex">
+            <div class="toast-body fw-semibold" id="toastMsg">Berhasil!</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
     </div>
 </div>
 
-<!-- ==================== 2. HALAMAN DASHBOARD ==================== -->
-<div id="appSection" class="container-fluid hidden">
-    <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-2 sidebar no-print">
-            <h5 class="fw-bold text-primary mb-3">Data Siswa App</h5>
-            <p class="small text-secondary mb-4">User: <strong id="userInfo" class="text-white"></strong></p>
-            <nav class="nav flex-column">
-                <a class="nav-link active" id="menuDashboard" onclick="tampilHalaman('dashboard')">Dashboard & Data</a>
-                <a class="nav-link" id="menuPassword" onclick="tampilHalaman('password')">Ganti Password</a>
-                <a class="nav-link text-danger mt-4" onclick="prosesLogout()">Logout</a>
-            </nav>
+<!-- ==================== 1. HALAMAN LOGIN ==================== -->
+<div id="loginSection" class="container d-flex align-items-center justify-content-center min-vh-100 py-4 fade-in">
+    <div class="row w-100 justify-content-center align-items-center g-4">
+        <!-- Info Panel Kiri (Desktop) -->
+        <div class="col-lg-5 d-none d-lg-block pe-4">
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <div class="brand-logo"><i class="bi bi-mortarboard-fill text-white"></i></div>
+                <div>
+                    <h4 class="fw-bold mb-0">Aplikasi Data Siswa</h4>
+                    <span class="text-info small">Sistem Informasi Akademik Digital</span>
+                </div>
+            </div>
+            <h2 class="fw-bold lh-base mb-3">Kelola Data Siswa Lebih Cepat, Rapi & Terstruktur.</h2>
+            <p class="text-secondary mb-4">Dirancang untuk memudahkan Admin dan Guru dalam mencari, memantau, serta mencetak data siswa secara digital tanpa risiko kehilangan berkas.</p>
+            <div class="glass-card p-3">
+                <div class="small text-info fw-semibold mb-2"><i class="bi bi-key-fill me-1"></i> Akun Demo Siap Pakai:</div>
+                <div class="d-flex justify-content-between small text-light border-bottom border-secondary border-opacity-25 pb-2 mb-2">
+                    <span><strong>Admin:</strong> <code>admin</code> / <code>admin123</code></span>
+                    <span class="badge bg-primary bg-opacity-25 text-info">Full Akses</span>
+                </div>
+                <div class="d-flex justify-content-between small text-light">
+                    <span><strong>Guru:</strong> <code>guru</code> / <code>guru123</code></span>
+                    <span class="badge bg-info bg-opacity-25 text-info">Lihat & Cetak</span>
+                </div>
+            </div>
         </div>
 
-        <!-- Konten Utama -->
-        <div class="col-md-10 p-4">
-            <!-- Sub-Halaman: Dashboard & Tabel Siswa -->
-            <div id="pageDashboard">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3 id="judulDashboard">Dashboard</h3>
-                    <button onclick="window.print()" class="btn btn-outline-info btn-sm no-print">Cetak Laporan</button>
+        <!-- Form Login Kanan -->
+        <div class="col-md-7 col-lg-5">
+            <div class="glass-card p-4 p-md-5">
+                <div class="text-center mb-4">
+                    <div class="brand-logo mx-auto mb-3"><i class="bi bi-shield-lock-fill text-white"></i></div>
+                    <h4 class="fw-bold mb-1">Selamat Datang</h4>
+                    <p class="text-secondary small">Silakan login sesuai hak akses Anda</p>
                 </div>
 
-                <!-- Statistik -->
-                <div class="row mb-4 no-print">
+                <div id="loginAlert" class="alert alert-danger bg-danger bg-opacity-25 text-danger border-danger border-opacity-50 py-2 small rounded-3 hidden">
+                    <i class="bi bi-exclamation-triangle-fill me-1"></i> Username, Password, atau Role tidak cocok!
+                </div>
+
+                <form onsubmit="prosesLogin(event)">
+                    <div class="mb-3">
+                        <label class="form-label small text-secondary fw-semibold">Pilih Hak Akses</label>
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <input type="radio" class="btn-check" name="loginRole" id="roleGuru" value="Guru" checked>
+                                <label class="role-box w-100 text-center" for="roleGuru">
+                                    <i class="bi bi-person-workspace d-block fs-4 mb-1"></i>
+                                    <span class="fw-semibold small">Guru</span>
+                                </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="radio" class="btn-check" name="loginRole" id="roleAdmin" value="Admin">
+                                <label class="role-box w-100 text-center" for="roleAdmin">
+                                    <i class="bi bi-person-fill-gear d-block fs-4 mb-1"></i>
+                                    <span class="fw-semibold small">Admin</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small text-secondary fw-semibold">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-dark border-secondary border-opacity-25 text-secondary"><i class="bi bi-person"></i></span>
+                            <input type="text" id="loginUser" class="form-control" placeholder="Masukkan username" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small text-secondary fw-semibold">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-dark border-secondary border-opacity-25 text-secondary"><i class="bi bi-lock"></i></span>
+                            <input type="password" id="loginPass" class="form-control" placeholder="Masukkan password" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-gradient w-100 py-2">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>MASUK KE APLIKASI
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== 2. APLIKASI UTAMA (DASHBOARD) ==================== -->
+<div id="appSection" class="container-fluid hidden">
+    <div class="row">
+        <!-- Sidebar Navigasi -->
+        <div class="col-lg-2 col-md-3 sidebar no-print d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex align-items-center gap-3 mb-4 px-2">
+                    <div class="brand-logo"><i class="bi bi-mortarboard-fill text-white"></i></div>
+                    <div>
+                        <h6 class="fw-bold mb-0">Data Siswa</h6>
+                        <span class="text-info" style="font-size: 0.72rem;">XII RPL 3 Project</span>
+                    </div>
+                </div>
+
+                <!-- Profil User Login -->
+                <div class="glass-card p-3 mb-4">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="avatar-circle" id="sidebarAvatar">A</div>
+                        <div class="overflow-hidden">
+                            <div class="fw-bold small text-truncate" id="userInfoName">Admin</div>
+                            <span class="badge bg-primary bg-opacity-25 text-info" style="font-size: 0.7rem;" id="userInfoRole">Administrator</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="small text-uppercase text-secondary fw-bold px-3 mb-2" style="font-size: 0.7rem; letter-spacing: 0.08em;">Menu Utama</div>
+                <nav class="nav flex-column">
+                    <a class="nav-pill-custom active" id="menuDashboard" onclick="tampilHalaman('dashboard')">
+                        <i class="bi bi-grid-1x2-fill"></i> Dashboard & Siswa
+                    </a>
+                    <a class="nav-pill-custom" id="menuTambahSidebar" onclick="bukaFormTambah()">
+                        <i class="bi bi-person-plus-fill"></i> Tambah Data Siswa
+                    </a>
+                    <a class="nav-pill-custom" id="menuPassword" onclick="tampilHalaman('password')">
+                        <i class="bi bi-shield-lock-fill"></i> Ganti Password
+                    </a>
+                </nav>
+            </div>
+
+            <div class="pt-3 border-top border-secondary border-opacity-25">
+                <a class="nav-pill-custom text-danger" onclick="prosesLogout()">
+                    <i class="bi bi-box-arrow-left"></i> Keluar (Logout)
+                </a>
+            </div>
+        </div>
+
+        <!-- Area Konten Utama -->
+        <div class="col-lg-10 col-md-9 p-4 p-lg-5">
+
+            <!-- ========== SUB-HALAMAN 1: DASHBOARD & TABEL DATA ========== -->
+            <div id="pageDashboard" class="fade-in">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+                    <div>
+                        <h3 class="fw-bold mb-1" id="judulDashboard">Dashboard Admin</h3>
+                        <p class="text-secondary small mb-0">Kelola, cari, dan cetak data siswa secara real-time</p>
+                    </div>
+                    <div class="d-flex gap-2 no-print">
+                        <button onclick="window.print()" class="btn btn-outline-info rounded-3 px-3">
+                            <i class="bi bi-printer-fill me-2"></i>Cetak Laporan
+                        </button>
+                        <button id="btnTambahTop" onclick="bukaFormTambah()" class="btn btn-gradient">
+                            <i class="bi bi-plus-lg me-1"></i>Tambah Siswa
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Kartu Statistik -->
+                <div class="row g-3 mb-4 no-print">
                     <div class="col-md-4">
-                        <div class="card-dark p-3">
-                            <span class="text-secondary small">Total Data Siswa</span>
-                            <h2 id="totalSiswa" class="fw-bold text-primary mt-1">0</h2>
+                        <div class="glass-card stat-card p-4 d-flex align-items-center justify-content-between">
+                            <div>
+                                <span class="text-secondary small fw-semibold">Total Siswa Terdaftar</span>
+                                <h2 id="totalSiswa" class="fw-extrabold mb-0 mt-1 text-white">0</h2>
+                            </div>
+                            <div class="stat-icon bg-primary bg-opacity-25 text-primary">
+                                <i class="bi bi-people-fill"></i>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card-dark p-3">
-                            <span class="text-secondary small">Hak Akses Aktif</span>
-                            <h2 id="roleAktif" class="fw-bold text-info mt-1">-</h2>
+                        <div class="glass-card stat-card p-4 d-flex align-items-center justify-content-between">
+                            <div>
+                                <span class="text-secondary small fw-semibold">Jumlah Rombel / Kelas</span>
+                                <h2 id="totalKelas" class="fw-extrabold mb-0 mt-1 text-info">0</h2>
+                            </div>
+                            <div class="stat-icon bg-info bg-opacity-25 text-info">
+                                <i class="bi bi-building-fill"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="glass-card stat-card p-4 d-flex align-items-center justify-content-between">
+                            <div>
+                                <span class="text-secondary small fw-semibold">Hak Akses Login</span>
+                                <h2 id="roleAktif" class="fw-extrabold mb-0 mt-1 text-success">Admin</h2>
+                            </div>
+                            <div class="stat-icon bg-success bg-opacity-25 text-success">
+                                <i class="bi bi-patch-check-fill"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Tabel Data Siswa -->
-                <div class="card-dark p-4">
-                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 no-print">
-                        <h5 class="mb-0">Daftar Data Siswa</h5>
-                        <div class="d-flex gap-2">
-                            <input type="text" id="inputCari" onkeyup="renderTabel()" class="form-control form-control-sm" placeholder="Cari NIS / Nama / Kelas...">
-                            <button id="btnTambah" onclick="bukaFormTambah()" class="btn btn-success btn-sm text-nowrap">+ Tambah Data</button>
+                <div class="glass-card p-4">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 no-print">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-table text-primary me-2"></i>Daftar Data Siswa</h5>
+                        <div class="d-flex flex-wrap gap-2">
+                            <!-- Filter Kelas -->
+                            <select id="filterKelas" onchange="renderTabel()" class="form-select form-select-sm" style="width: 160px;">
+                                <option value="">Semua Kelas</option>
+                                <option value="XII RPL 1">XII RPL 1</option>
+                                <option value="XII RPL 2">XII RPL 2</option>
+                                <option value="XII RPL 3">XII RPL 3</option>
+                                <option value="XII IPA 1">XII IPA 1</option>
+                                <option value="XII IPS 1">XII IPS 1</option>
+                            </select>
+                            <!-- Kolom Pencarian -->
+                            <div class="input-group input-group-sm" style="width: 250px;">
+                                <span class="input-group-text bg-dark border-secondary border-opacity-25 text-secondary"><i class="bi bi-search"></i></span>
+                                <input type="text" id="inputCari" onkeyup="renderTabel()" class="form-control" placeholder="Cari NIS, Nama, Alamat...">
+                            </div>
                         </div>
                     </div>
 
-                    <div class="table-responsive">
-                        <table class="table table-dark table-hover align-middle">
+                    <div class="table-responsive rounded-3 border border-secondary border-opacity-25">
+                        <table class="table table-modern align-middle">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>NIS</th>
-                                    <th>Nama</th>
-                                    <th>Kelas</th>
-                                    <th>Alamat</th>
-                                    <th class="no-print">Aksi</th>
+                                    <th width="6%">No</th>
+                                    <th width="14%">NIS</th>
+                                    <th width="26%">Nama Siswa</th>
+                                    <th width="14%">Kelas</th>
+                                    <th width="22%">Alamat</th>
+                                    <th width="18%" class="text-center no-print">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="tabelBody"></tbody>
@@ -120,74 +461,128 @@
                 </div>
             </div>
 
-            <!-- Sub-Halaman: Form Tambah / Edit Data Siswa -->
-            <div id="pageForm" class="hidden">
-                <div class="card-dark p-4 mx-auto" style="max-width: 600px;">
-                    <h4 id="judulForm" class="mb-4">Tambah Data Siswa</h4>
+            <!-- ========== SUB-HALAMAN 2: FORM TAMBAH / EDIT SISWA ========== -->
+            <div id="pageForm" class="hidden fade-in">
+                <div class="glass-card p-4 p-md-5 mx-auto" style="max-width: 650px;">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="stat-icon bg-primary bg-opacity-25 text-primary">
+                            <i class="bi bi-person-lines-fill"></i>
+                        </div>
+                        <div>
+                            <h4 id="judulForm" class="fw-bold mb-0">Tambah Data Siswa</h4>
+                            <p class="text-secondary small mb-0">Lengkapi formulir identitas siswa di bawah ini</p>
+                        </div>
+                    </div>
+
                     <form onsubmit="simpanSiswa(event)">
                         <input type="hidden" id="editIndex">
-                        <div class="mb-3">
-                            <label class="form-label">NIS</label>
-                            <input type="text" id="inputNis" class="form-control" placeholder="Masukkan NIS" required>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small text-secondary fw-semibold">Nomor Induk Siswa (NIS)</label>
+                                <input type="text" id="inputNis" class="form-control" placeholder="Contoh: 004" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small text-secondary fw-semibold">Kelas</label>
+                                <select id="inputKelas" class="form-select" required>
+                                    <option value="">-- Pilih Kelas --</option>
+                                    <option value="XII RPL 1">XII RPL 1</option>
+                                    <option value="XII RPL 2">XII RPL 2</option>
+                                    <option value="XII RPL 3">XII RPL 3</option>
+                                    <option value="XII IPA 1">XII IPA 1</option>
+                                    <option value="XII IPS 1">XII IPS 1</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small text-secondary fw-semibold">Nama Lengkap Siswa</label>
+                                <input type="text" id="inputNama" class="form-control" placeholder="Masukkan nama lengkap siswa" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small text-secondary fw-semibold">Alamat Lengkap</label>
+                                <textarea id="inputAlamat" rows="3" class="form-control" placeholder="Masukkan alamat lengkap tempat tinggal" required></textarea>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Nama</label>
-                            <input type="text" id="inputNama" class="form-control" placeholder="Masukkan Nama Lengkap" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Kelas</label>
-                            <select id="inputKelas" class="form-select" required>
-                                <option value="">-- Pilih Kelas --</option>
-                                <option value="XII RPL 1">XII RPL 1</option>
-                                <option value="XII RPL 2">XII RPL 2</option>
-                                <option value="XII RPL 3">XII RPL 3</option>
-                                <option value="XII IPA 1">XII IPA 1</option>
-                                <option value="XII IPS 1">XII IPS 1</option>
-                            </select>
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label">Alamat</label>
-                            <textarea id="inputAlamat" rows="3" class="form-control" placeholder="Masukkan Alamat" required></textarea>
-                        </div>
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary px-4">SIMPAN</button>
-                            <button type="button" onclick="tampilHalaman('dashboard')" class="btn btn-secondary px-4">BATAL</button>
+
+                        <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top border-secondary border-opacity-25">
+                            <button type="button" onclick="tampilHalaman('dashboard')" class="btn btn-outline-secondary px-4 rounded-3">Batal</button>
+                            <button type="submit" class="btn btn-gradient px-4"><i class="bi bi-check-circle me-2"></i>Simpan Data</button>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <!-- Sub-Halaman: Detail Data Siswa -->
-            <div id="pageDetail" class="hidden">
-                <div class="card-dark p-4 mx-auto" style="max-width: 600px;">
-                    <h4 class="mb-1">DETAIL DATA SISWA</h4>
-                    <p id="detailSub" class="text-info mb-3"></p>
-                    <hr class="border-secondary">
-                    <table class="table table-borderless text-white">
-                        <tr><th width="30%">Nama Lengkap</th><td id="detailNama"></td></tr>
-                        <tr><th>NIS</th><td id="detailNis"></td></tr>
-                        <tr><th>Kelas</th><td id="detailKelas"></td></tr>
-                        <tr><th>Alamat</th><td id="detailAlamat"></td></tr>
-                    </table>
-                    <div class="mt-4 d-flex gap-2 no-print">
-                        <button onclick="window.print()" class="btn btn-success">Cetak</button>
-                        <button onclick="tampilHalaman('dashboard')" class="btn btn-secondary ms-auto">Kembali</button>
+            <!-- ========== SUB-HALAMAN 3: DETAIL KARTU SISWA ========== -->
+            <div id="pageDetail" class="hidden fade-in">
+                <div class="glass-card p-4 p-md-5 mx-auto" style="max-width: 650px;">
+                    <div class="d-flex justify-content-between align-items-start mb-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="avatar-large text-white" id="detailAvatar">AP</div>
+                            <div>
+                                <span class="badge bg-success bg-opacity-25 text-success mb-1">Status: Siswa Aktif</span>
+                                <h3 class="fw-bold mb-1" id="detailNamaHeader">Andi Pratama</h3>
+                                <p class="text-info mb-0 small fw-semibold" id="detailSub">NIS: 001 • Kelas: XII IPA 1</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-dark bg-opacity-50 rounded-4 p-4 border border-secondary border-opacity-25">
+                        <div class="row py-2 border-bottom border-secondary border-opacity-25">
+                            <div class="col-4 text-secondary small fw-semibold">Nomor Induk (NIS)</div>
+                            <div class="col-8 fw-bold" id="detailNis">001</div>
+                        </div>
+                        <div class="row py-2 border-bottom border-secondary border-opacity-25">
+                            <div class="col-4 text-secondary small fw-semibold">Nama Lengkap</div>
+                            <div class="col-8 fw-bold" id="detailNama">Andi Pratama</div>
+                        </div>
+                        <div class="row py-2 border-bottom border-secondary border-opacity-25">
+                            <div class="col-4 text-secondary small fw-semibold">Kelas</div>
+                            <div class="col-8 fw-bold text-info" id="detailKelas">XII IPA 1</div>
+                        </div>
+                        <div class="row pt-2">
+                            <div class="col-4 text-secondary small fw-semibold">Alamat Domisili</div>
+                            <div class="col-8" id="detailAlamat">Jl. Merdeka No. 10, Cirebon</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2 mt-4 no-print">
+                        <button onclick="window.print()" class="btn btn-success rounded-3 px-4">
+                            <i class="bi bi-printer-fill me-2"></i>Cetak Kartu Siswa
+                        </button>
+                        <button id="btnEditFromDetail" class="btn btn-warning rounded-3 px-3">
+                            <i class="bi bi-pencil-square me-1"></i>Edit
+                        </button>
+                        <button onclick="tampilHalaman('dashboard')" class="btn btn-outline-light rounded-3 px-4 ms-auto">
+                            <i class="bi bi-arrow-left me-1"></i>Kembali
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Sub-Halaman: Ganti Password -->
-            <div id="pagePassword" class="hidden">
-                <div class="card-dark p-4 mx-auto" style="max-width: 450px;">
-                    <h4 class="mb-3">Ganti Password</h4>
-                    <div id="passAlert" class="alert alert-success py-2 small hidden">Password berhasil diubah!</div>
+            <!-- ========== SUB-HALAMAN 4: GANTI PASSWORD ========== -->
+            <div id="pagePassword" class="hidden fade-in">
+                <div class="glass-card p-4 p-md-5 mx-auto" style="max-width: 480px;">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="stat-icon bg-warning bg-opacity-25 text-warning">
+                            <i class="bi bi-key-fill"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold mb-0">Ganti Password</h4>
+                            <p class="text-secondary small mb-0">Perbarui kata sandi keamanan akun Anda</p>
+                        </div>
+                    </div>
+
                     <form onsubmit="simpanPassword(event)">
                         <div class="mb-3">
-                            <label class="form-label">Password Baru</label>
-                            <input type="password" id="passBaru" class="form-control" placeholder="Masukkan password baru" required>
+                            <label class="form-label small text-secondary fw-semibold">Password Baru</label>
+                            <input type="password" id="passBaru" class="form-control" placeholder="Minimal 4 karakter" minlength="4" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Simpan Password</button>
-                        <button type="button" onclick="tampilHalaman('dashboard')" class="btn btn-secondary">Kembali</button>
+                        <div class="mb-4">
+                            <label class="form-label small text-secondary fw-semibold">Konfirmasi Password Baru</label>
+                            <input type="password" id="passKonfirmasi" class="form-control" placeholder="Ulangi password baru" minlength="4" required>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-gradient w-100">Simpan Password Baru</button>
+                            <button type="button" onclick="tampilHalaman('dashboard')" class="btn btn-outline-secondary px-3 rounded-3">Batal</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -196,8 +591,10 @@
     </div>
 </div>
 
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Inisialisasi Data Default di localStorage (jika belum ada)
+    // 1. Data Awal (Otomatis tersimpan di Browser / localStorage)
     const defaultUsers = [
         { username: 'admin', password: 'admin123', role: 'Admin' },
         { username: 'guru', password: 'guru123', role: 'Guru' }
@@ -206,72 +603,81 @@
     const defaultSiswa = [
         { nis: '001', nama: 'Andi Pratama', kelas: 'XII IPA 1', alamat: 'Jl. Merdeka No. 10, Cirebon' },
         { nis: '002', nama: 'Budi Santoso', kelas: 'XII IPA 1', alamat: 'Jl. Kartini No. 5, Cirebon' },
-        { nis: '003', nama: 'Citra Lestari', kelas: 'XII IPS 1', alamat: 'Jl. Sudirman No. 22, Cirebon' }
+        { nis: '003', nama: 'Citra Lestari', kelas: 'XII IPS 1', alamat: 'Jl. Sudirman No. 22, Cirebon' },
+        { nis: '004', nama: 'Dewi Anggraini', kelas: 'XII RPL 3', alamat: 'Jl. Tuparev No. 88, Cirebon' },
+        { nis: '005', nama: 'Eko Setiawan', kelas: 'XII RPL 3', alamat: 'Jl. Cipto Mangunkusumo No. 14, Cirebon' }
     ];
 
-    if (!localStorage.getItem('users')) {
-        localStorage.setItem('users', JSON.stringify(defaultUsers));
-    }
-    if (!localStorage.getItem('dataSiswa')) {
-        localStorage.setItem('dataSiswa', JSON.stringify(defaultSiswa));
+    if (!localStorage.getItem('users_v2')) localStorage.setItem('users_v2', JSON.stringify(defaultUsers));
+    if (!localStorage.getItem('siswa_v2')) localStorage.setItem('siswa_v2', JSON.stringify(defaultSiswa));
+
+    let currentUser = JSON.parse(sessionStorage.getItem('loggedUser_v2'));
+
+    // Fungsi Notifikasi Toast
+    function showToast(pesan, warna = 'bg-primary') {
+        const toastEl = document.getElementById('liveToast');
+        toastEl.className = `toast align-items-center text-white border-0 rounded-3 shadow-lg ${warna}`;
+        document.getElementById('toastMsg').innerText = pesan;
+        new bootstrap.Toast(toastEl).show();
     }
 
-    let currentUser = JSON.parse(sessionStorage.getItem('loggedUser'));
+    // Inisial Nama untuk Avatar
+    function getInitials(nama) {
+        return nama.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
+    }
 
-    // Cek status login saat halaman dibuka
     window.onload = function() {
-        if (currentUser) {
-            masukDashboard();
-        }
+        if (currentUser) masukDashboard();
     };
 
-    // Fungsi Login
+    // 2. Proses Login
     function prosesLogin(e) {
         e.preventDefault();
         const user = document.getElementById('loginUser').value.trim();
         const pass = document.getElementById('loginPass').value.trim();
         const role = document.querySelector('input[name="loginRole"]:checked').value;
 
-        const users = JSON.parse(localStorage.getItem('users'));
+        const users = JSON.parse(localStorage.getItem('users_v2'));
         const found = users.find(u => u.username === user && u.password === pass && u.role === role);
 
         if (found) {
             currentUser = found;
-            sessionStorage.setItem('loggedUser', JSON.stringify(found));
+            sessionStorage.setItem('loggedUser_v2', JSON.stringify(found));
             document.getElementById('loginAlert').classList.add('hidden');
             masukDashboard();
+            showToast(`Selamat datang kembali, ${found.username}!`, 'bg-success');
         } else {
             document.getElementById('loginAlert').classList.remove('hidden');
         }
     }
 
-    // Masuk ke Tampilan Dashboard
+    // 3. Masuk Dashboard
     function masukDashboard() {
         document.getElementById('loginSection').classList.add('hidden');
         document.getElementById('appSection').classList.remove('hidden');
 
-        document.getElementById('userInfo').innerText = `${currentUser.username} (${currentUser.role})`;
+        document.getElementById('sidebarAvatar').innerText = getInitials(currentUser.username);
+        document.getElementById('userInfoName').innerText = currentUser.username.toUpperCase();
+        document.getElementById('userInfoRole').innerText = currentUser.role;
         document.getElementById('judulDashboard').innerText = `Dashboard ${currentUser.role}`;
         document.getElementById('roleAktif').innerText = currentUser.role;
 
-        // Sembunyikan tombol Tambah jika role adalah Guru
-        if (currentUser.role === 'Guru') {
-            document.getElementById('btnTambah').classList.add('hidden');
-        } else {
-            document.getElementById('btnTambah').classList.remove('hidden');
-        }
+        // Pembatasan Hak Akses Guru vs Admin
+        const isGuru = currentUser.role === 'Guru';
+        document.getElementById('btnTambahTop').classList.toggle('hidden', isGuru);
+        document.getElementById('menuTambahSidebar').classList.toggle('hidden', isGuru);
 
         tampilHalaman('dashboard');
-        renderTabel();
     }
 
-    // Navigasi Antar Halaman
+    // 4. Navigasi Halaman
     function tampilHalaman(halaman) {
         ['pageDashboard', 'pageForm', 'pageDetail', 'pagePassword'].forEach(id => {
             document.getElementById(id).classList.add('hidden');
         });
-        document.getElementById('menuDashboard').classList.remove('active');
-        document.getElementById('menuPassword').classList.remove('active');
+        ['menuDashboard', 'menuTambahSidebar', 'menuPassword'].forEach(id => {
+            document.getElementById(id).classList.remove('active');
+        });
 
         if (halaman === 'dashboard') {
             document.getElementById('pageDashboard').classList.remove('hidden');
@@ -279,64 +685,82 @@
             renderTabel();
         } else if (halaman === 'form') {
             document.getElementById('pageForm').classList.remove('hidden');
+            document.getElementById('menuTambahSidebar').classList.add('active');
         } else if (halaman === 'detail') {
             document.getElementById('pageDetail').classList.remove('hidden');
         } else if (halaman === 'password') {
             document.getElementById('pagePassword').classList.remove('hidden');
             document.getElementById('menuPassword').classList.add('active');
-            document.getElementById('passAlert').classList.add('hidden');
         }
     }
 
-    // Menampilkan Data Siswa ke Tabel + Pencarian
+    // 5. Render Tabel & Filter Pencarian
     function renderTabel() {
-        const dataSiswa = JSON.parse(localStorage.getItem('dataSiswa')) || [];
+        const dataSiswa = JSON.parse(localStorage.getItem('siswa_v2')) || [];
         const keyword = document.getElementById('inputCari').value.toLowerCase();
+        const kelasFilter = document.getElementById('filterKelas').value;
         const tbody = document.getElementById('tabelBody');
         tbody.innerHTML = '';
 
+        // Update Statistik
         document.getElementById('totalSiswa').innerText = dataSiswa.length;
+        const uniqueKelas = [...new Set(dataSiswa.map(s => s.kelas))];
+        document.getElementById('totalKelas').innerText = uniqueKelas.length;
 
-        const filtered = dataSiswa.map((item, index) => ({ ...item, originalIndex: index }))
-            .filter(item => 
-                item.nis.toLowerCase().includes(keyword) ||
-                item.nama.toLowerCase().includes(keyword) ||
-                item.kelas.toLowerCase().includes(keyword)
-            );
+        const filtered = dataSiswa
+            .map((item, index) => ({ ...item, originalIndex: index }))
+            .filter(item => {
+                const matchText = item.nis.toLowerCase().includes(keyword) ||
+                                  item.nama.toLowerCase().includes(keyword) ||
+                                  item.alamat.toLowerCase().includes(keyword);
+                const matchKelas = kelasFilter === '' || item.kelas === kelasFilter;
+                return matchText && matchKelas;
+            });
 
         if (filtered.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="6" class="text-center text-secondary py-3">Data siswa tidak ditemukan.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="6" class="text-center text-secondary py-5"><i class="bi bi-inbox fs-2 d-block mb-2"></i>Data siswa tidak ditemukan</td></tr>`;
             return;
         }
 
         filtered.forEach((siswa, i) => {
-            let tombolAdmin = '';
+            let tombolAksi = `
+                <button onclick="lihatDetail(${siswa.originalIndex})" class="btn btn-sm btn-info bg-opacity-25 text-info border-0 rounded-2" title="Lihat Detail">
+                    <i class="bi bi-eye-fill"></i>
+                </button>
+            `;
+
             if (currentUser.role === 'Admin') {
-                tombolAdmin = `
-                    <button onclick="bukaFormEdit(${siswa.originalIndex})" class="btn btn-warning btn-sm">Edit</button>
-                    <button onclick="hapusSiswa(${siswa.originalIndex})" class="btn btn-danger btn-sm">Hapus</button>
+                tombolAksi += `
+                    <button onclick="bukaFormEdit(${siswa.originalIndex})" class="btn btn-sm btn-warning bg-opacity-25 text-warning border-0 rounded-2 ms-1" title="Edit Data">
+                        <i class="bi bi-pencil-fill"></i>
+                    </button>
+                    <button onclick="hapusSiswa(${siswa.originalIndex})" class="btn btn-sm btn-danger bg-opacity-25 text-danger border-0 rounded-2 ms-1" title="Hapus Data">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
                 `;
             }
 
             tbody.innerHTML += `
                 <tr>
-                    <td>${i + 1}</td>
-                    <td>${siswa.nis}</td>
-                    <td>${siswa.nama}</td>
-                    <td>${siswa.kelas}</td>
-                    <td>${siswa.alamat}</td>
-                    <td class="no-print">
-                        <button onclick="lihatDetail(${siswa.originalIndex})" class="btn btn-info btn-sm text-white">Detail</button>
-                        ${tombolAdmin}
+                    <td class="text-secondary">${i + 1}</td>
+                    <td><span class="badge bg-secondary bg-opacity-25 text-light font-monospace">${siswa.nis}</span></td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="avatar-circle">${getInitials(siswa.nama)}</div>
+                            <span class="fw-semibold text-white">${siswa.nama}</span>
+                        </div>
                     </td>
+                    <td><span class="badge bg-primary bg-opacity-25 text-info">${siswa.kelas}</span></td>
+                    <td class="text-secondary small">${siswa.alamat}</td>
+                    <td class="text-center no-print">${tombolAksi}</td>
                 </tr>
             `;
         });
     }
 
-    // Buka Form Tambah
+    // 6. Tambah & Edit Siswa
     function bukaFormTambah() {
-        document.getElementById('judulForm').innerText = 'Tambah Data Siswa';
+        document.getElementById('judulForm').innerText = 'Tambah Data Siswa Baru';
         document.getElementById('editIndex').value = '';
         document.getElementById('inputNis').value = '';
         document.getElementById('inputNama').value = '';
@@ -345,11 +769,8 @@
         tampilHalaman('form');
     }
 
-    // Buka Form Edit
     function bukaFormEdit(index) {
-        const dataSiswa = JSON.parse(localStorage.getItem('dataSiswa'));
-        const siswa = dataSiswa[index];
-
+        const siswa = JSON.parse(localStorage.getItem('siswa_v2'))[index];
         document.getElementById('judulForm').innerText = 'Edit Data Siswa';
         document.getElementById('editIndex').value = index;
         document.getElementById('inputNis').value = siswa.nis;
@@ -359,73 +780,92 @@
         tampilHalaman('form');
     }
 
-    // Simpan Data (Tambah / Edit)
     function simpanSiswa(e) {
         e.preventDefault();
-        const dataSiswa = JSON.parse(localStorage.getItem('dataSiswa'));
+        const dataSiswa = JSON.parse(localStorage.getItem('siswa_v2'));
         const index = document.getElementById('editIndex').value;
 
-        const siswaBaru = {
-            nis: document.getElementById('inputNis').value,
-            nama: document.getElementById('inputNama').value,
+        const siswaObj = {
+            nis: document.getElementById('inputNis').value.trim(),
+            nama: document.getElementById('inputNama').value.trim(),
             kelas: document.getElementById('inputKelas').value,
-            alamat: document.getElementById('inputAlamat').value
+            alamat: document.getElementById('inputAlamat').value.trim()
         };
 
         if (index === '') {
-            dataSiswa.push(siswaBaru);
+            dataSiswa.unshift(siswaObj);
+            showToast('Data siswa berhasil ditambahkan!', 'bg-success');
         } else {
-            dataSiswa[index] = siswaBaru;
+            dataSiswa[index] = siswaObj;
+            showToast('Data siswa berhasil diperbarui!', 'bg-info');
         }
 
-        localStorage.setItem('dataSiswa', JSON.stringify(dataSiswa));
+        localStorage.setItem('siswa_v2', JSON.stringify(dataSiswa));
         tampilHalaman('dashboard');
     }
 
-    // Hapus Data Siswa
+    // 7. Hapus Siswa
     function hapusSiswa(index) {
-        if (confirm('Yakin ingin menghapus data siswa ini?')) {
-            const dataSiswa = JSON.parse(localStorage.getItem('dataSiswa'));
+        if (confirm('Apakah Anda yakin ingin menghapus data siswa ini?')) {
+            const dataSiswa = JSON.parse(localStorage.getItem('siswa_v2'));
             dataSiswa.splice(index, 1);
-            localStorage.setItem('dataSiswa', JSON.stringify(dataSiswa));
+            localStorage.setItem('siswa_v2', JSON.stringify(dataSiswa));
             renderTabel();
+            showToast('Data siswa telah dihapus.', 'bg-danger');
         }
     }
 
-    // Lihat Detail Siswa
+    // 8. Detail Siswa
     function lihatDetail(index) {
-        const dataSiswa = JSON.parse(localStorage.getItem('dataSiswa'));
-        const siswa = dataSiswa[index];
+        const siswa = JSON.parse(localStorage.getItem('siswa_v2'))[index];
+        document.getElementById('detailAvatar').innerText = getInitials(siswa.nama);
+        document.getElementById('detailNamaHeader').innerText = siswa.nama;
+        document.getElementById('detailSub').innerText = `NIS: ${siswa.nis} • Kelas: ${siswa.kelas}`;
+        document.getElementById('detailNis').innerText = siswa.nis;
+        document.getElementById('detailNama').innerText = siswa.nama;
+        document.getElementById('detailKelas').innerText = siswa.kelas;
+        document.getElementById('detailAlamat').innerText = siswa.alamat;
 
-        document.getElementById('detailSub').innerText = `NIS: ${siswa.nis} | Kelas: ${siswa.kelas}`;
-        document.getElementById('detailNama').innerText = `: ${siswa.nama}`;
-        document.getElementById('detailNis').innerText = `: ${siswa.nis}`;
-        document.getElementById('detailKelas').innerText = `: ${siswa.kelas}`;
-        document.getElementById('detailAlamat').innerText = `: ${siswa.alamat}`;
+        const btnEdit = document.getElementById('btnEditFromDetail');
+        if (currentUser.role === 'Admin') {
+            btnEdit.classList.remove('hidden');
+            btnEdit.onclick = () => bukaFormEdit(index);
+        } else {
+            btnEdit.classList.add('hidden');
+        }
+
         tampilHalaman('detail');
     }
 
-    // Ganti Password
+    // 9. Ganti Password
     function simpanPassword(e) {
         e.preventDefault();
-        const passBaru = document.getElementById('passBaru').value.trim();
-        const users = JSON.parse(localStorage.getItem('users'));
+        const baru = document.getElementById('passBaru').value.trim();
+        const konfirmasi = document.getElementById('passKonfirmasi').value.trim();
 
+        if (baru !== konfirmasi) {
+            showToast('Konfirmasi password tidak cocok!', 'bg-danger');
+            return;
+        }
+
+        const users = JSON.parse(localStorage.getItem('users_v2'));
         const idx = users.findIndex(u => u.username === currentUser.username && u.role === currentUser.role);
         if (idx !== -1) {
-            users[idx].password = passBaru;
-            currentUser.password = passBaru;
-            localStorage.setItem('users', JSON.stringify(users));
-            sessionStorage.setItem('loggedUser', JSON.stringify(currentUser));
+            users[idx].password = baru;
+            currentUser.password = baru;
+            localStorage.setItem('users_v2', JSON.stringify(users));
+            sessionStorage.setItem('loggedUser_v2', JSON.stringify(currentUser));
             document.getElementById('passBaru').value = '';
-            document.getElementById('passAlert').classList.remove('hidden');
+            document.getElementById('passKonfirmasi').value = '';
+            showToast('Password berhasil diperbarui!', 'bg-success');
+            tampilHalaman('dashboard');
         }
     }
 
-    // Logout
+    // 10. Logout
     function prosesLogout() {
-        if (confirm('Yakin ingin logout?')) {
-            sessionStorage.removeItem('loggedUser');
+        if (confirm('Keluar dari aplikasi?')) {
+            sessionStorage.removeItem('loggedUser_v2');
             currentUser = null;
             document.getElementById('appSection').classList.add('hidden');
             document.getElementById('loginSection').classList.remove('hidden');
